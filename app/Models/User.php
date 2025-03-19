@@ -60,10 +60,14 @@ class User extends Authenticatable
             $games = Game::all();
             foreach ($games as $game) {
                 Vote::create([
-                    "user" => $user->id,
-                    "game" => $game->id
+                    "user_id" => $user->id,
+                    "game_id" => $game->id
                 ]);
             }
+        });
+
+        static::deleting(function (User $user) {
+            Vote::where('user', $user->id)->delete();
         });
     }
 

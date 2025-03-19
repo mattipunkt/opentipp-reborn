@@ -15,7 +15,8 @@ class Game extends Model
         'is_finished',
         'time',
         'is_started',
-        'game_type'
+        'game_type',
+        'openligadb_id'
     ];
 
     protected $casts = [
@@ -29,6 +30,10 @@ class Game extends Model
     public function team2()
     {
         return $this->hasOne(Team::class, 'id', 'team2_id');
+    }
+
+    public function gameType() {
+        return $this->hasOne(GameType::class, 'id', 'game_type');
     }
 
 

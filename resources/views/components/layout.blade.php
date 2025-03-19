@@ -36,7 +36,7 @@
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="/tippen" aria-current="page"
+                        <a class="nav-link" href="/vote" aria-current="page"
                             ><i class="bi bi-123"> </i> Tippen
                             <span class="visually-hidden">(current)</span></a
                         >
@@ -45,7 +45,7 @@
                         <a class="nav-link" href="#"><i class="bi bi-megaphone"> </i> Spezialtipps</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-table"> </i> Punktetabelle</a>
+                        <a class="nav-link" href="/ranks"><i class="bi bi-table"> </i> Punktetabelle</a>
                     </li>
                     @admin
                     <li class="nav-item">

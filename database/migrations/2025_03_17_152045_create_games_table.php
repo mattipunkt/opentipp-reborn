@@ -15,14 +15,15 @@ return new class extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Team::class, 'team1_id')->onDelete('cascade');
-            $table->foreignIdFor(Team::class, 'team2_id')->onDelete('cascade');
+            $table->foreignIdFor(Team::class, 'team1_id')->onDelete('cascade')->nullable();
+            $table->foreignIdFor(Team::class, 'team2_id')->onDelete('cascade')->nullable();
             $table->integer('team1_score')->nullable();
             $table->integer('team2_score')->nullable();
             $table->dateTime('time')->nullable();
             $table->boolean('is_finished')->default(false);
             $table->boolean('is_started')->default(false);
-            $table->foreignIdFor(GameType::class, 'game_type')->onDelete('cascade');
+            $table->foreignIdFor(GameType::class, 'game_type')->onDelete('cascade')->nullable();
+            $table->integer('openligadb_id');
             $table->timestamps();
         });
     }

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class, 'user')->onDelete('cascade');
-            $table->foreignIdFor(Game::class, 'game')->onDelete('cascade');
+            $table->foreignIdFor(User::class, 'user_id')->onDelete('cascade');
+            $table->foreignIdFor(Game::class, 'game_id')->onDelete('cascade');
             $table->integer("team1_vote")->nullable();
             $table->integer("team2_vote")->nullable();
             $table->integer("points")->nullable();

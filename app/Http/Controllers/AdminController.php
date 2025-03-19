@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Vote;
 
 class AdminController extends Controller
 {
     public function viewUsers(Request $request) {
-        if (!auth()->user()->isAdmin()) {
+        if (!auth()->check() || !auth()->user()->isAdmin()) {
             session()->flash('status', 'Du hast hier nichts zu suchen!');
             return redirect('/');
         }
@@ -20,6 +21,7 @@ class AdminController extends Controller
                 User::where('id', $id)->update(['is_accepted' => true]);
             } elseif ($activate == 'false') {
                 $id = $request->query('id');
+                Vote::where('user', $id)->delete();
                 User::where('id', $id)->delete();
             }
         }
