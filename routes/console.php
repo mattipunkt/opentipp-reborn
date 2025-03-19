@@ -42,4 +42,4 @@ Schedule::call(function () {
             ]);
         }
     }
-})->everyMinute()->sendOutputTo('/home/matti/Dokumente/logs.txt');
+})->everyFifteenSeconds()->sendOutputTo('/home/matti/Dokumente/logs.txt');

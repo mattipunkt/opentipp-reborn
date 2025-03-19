@@ -21,7 +21,7 @@
         class="navbar navbar-expand-md navbar-light bg-light"
     >
         <div class="container">
-            <a class="navbar-brand" href="#">openTipp</a>
+            <a class="navbar-brand" href="/">openTipp</a>
             <button
                 class="navbar-toggler d-lg-none"
                 type="button"
@@ -47,6 +47,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="bi bi-table"> </i> Punktetabelle</a>
                     </li>
+                    @admin
+                    <li class="nav-item">
+                        <div style="margin-left: 10px;margin-right: 10px;margin-top:50%" class="vr ml-5 mr-5"></div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link" href="/admin/users">
+                            <span class="badge text-bg-info">Admin-Bereich</span>
+
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/users">
+                            <i class="bi bi-people">  </i> 
+                            Nutzer
+                        </a>
+                    </li>
+                    @endadmin
                 </ul>
                 <ul class="navbar-nav ms-auto text-end">
                     @auth
@@ -65,13 +82,19 @@
                         <a class="nav-link" href="/register"><i class="bi bi-box-arrow-in-right"> </i> Registrieren</a>
                     </li>
                     @endguest
-                    @admin
+                    @auth
                     <li class="nav-item">
-                        <a class="nav-link" href="/users">
-                            <i>Nutzer</i>
+                        <a class="nav-link">
+                            <i class="bi bi-user"> </i> 
+                            <i>Hallo, {{ Auth::user()->name }}!</i>
                         </a>
                     </li>
-                    @endadmin
+                    @endauth
+                    <li class="nav-item">
+                        <div class="nav-link">
+                            <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge text-bg-dark"><i class="bi bi-github"> </i> openTipp v0.0.1</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -79,6 +102,12 @@
     
     <div class="container">
         <br>
+        @if(session('status'))
+            <div class="alert alert-info">
+                {{ session('status') }}
+            </div>
+            <br>
+        @endif
         {{ $slot }}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

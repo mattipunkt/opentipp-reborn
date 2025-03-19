@@ -28,10 +28,20 @@ class AuthController extends Controller
                 'password' => 'required|string|min:8|confirmed'
             ]
         );
-
+        
+        $firstUser = User::count() === 0;
         $user = User::create($validated);
 
-        Auth::login($user);
+        if ($firstUser) {
+            $user->is_admin = true;
+            $user->is_accepted = true;
+            $user->save();
+            Auth::login($user);
+        } else {
+            $user->is_accepted = false;
+            $user->save;
+            session()->flash('status', '🚀 Registrierung erfolgreich! Der Account muss jedoch noch manuell vom Admin aktiviert werden. Wenn es soweit ist, erhältst du eine E-Mail!');
+        }
 
         return redirect('/');
     }
@@ -44,6 +54,12 @@ class AuthController extends Controller
                 'password' => 'required|string'
             ]
         );
+        $user = User::where('email', $validated['email'])->first();
+
+        if ($user && !$user->is_accepted) {
+            session()->flash('status', '🚀 Dein Account wurde noch nicht freigeschaltet! Bitte warte, bis du eine E-Mail bekommst!');
+            return redirect('/');
+        }
 
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
@@ -51,7 +67,7 @@ class AuthController extends Controller
         }
 
         throw ValidationException::withMessages([
-                'credentials' => 'Falsche Zugangsdaten!'
+                'credentials' => '🫣 Falsche Zugangsdaten!'
             ]
         );
     }
