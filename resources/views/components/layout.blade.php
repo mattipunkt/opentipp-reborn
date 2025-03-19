@@ -49,9 +49,29 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto text-end">
+                    @auth
+                    <form action={{ route('logout') }} method="post">
+                        @csrf
+                        <li class="nav-item">
+                            <button class="nav-link"><i class="bi bi-door-closed"> </i> Logout</button>
+                        </li>
+                    </form>
+                    @endauth
+                    @guest
                     <li class="nav-item">
                         <a class="nav-link" href="/login"><i class="bi bi-door-open"> </i> Login</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register"><i class="bi bi-box-arrow-in-right"> </i> Registrieren</a>
+                    </li>
+                    @endguest
+                    @admin
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users">
+                            <i>Nutzer</i>
+                        </a>
+                    </li>
+                    @endadmin
                 </ul>
             </div>
         </div>

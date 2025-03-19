@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'is_admin',
         'points',
     ];
 
@@ -54,7 +54,7 @@ class User extends Authenticatable
         parent::boot();
 
         static::created(function (User $user) {
-            $user->profile()->create();
+            // $user->profile()->create();
 
             $games = Game::all();
             foreach ($games as $game) {
@@ -69,5 +69,11 @@ class User extends Authenticatable
     public function votes(): HasMany
     {
         return $this->hasMany(Vote::class);
+    }
+
+
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
     }
 }
