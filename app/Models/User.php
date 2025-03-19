@@ -25,6 +25,8 @@ class User extends Authenticatable
         'is_admin',
         'is_accepted',
         'points',
+        'first_name',
+        'profile_picture',
     ];
 
     /**

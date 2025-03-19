@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\ProfilePictureController;
+
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Game;
@@ -39,3 +41,7 @@ Route::get('/ranks', function () {
         'users' => User::orderBy('points', 'desc')->get(),
     ]);
 });
+
+//Profilbild
+Route::get('/profilepicture', [ProfilePictureController::class, 'viewProfilePictureChanger'])->name('show.profilepicture');
+Route::post('/profilepicture', [ProfilePictureController::class, 'saveProfilePicture'])->name('save.profilepicture');

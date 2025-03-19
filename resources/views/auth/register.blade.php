@@ -16,6 +16,17 @@
             <input
                 type="text"
                 class="form-control"
+                name="first_name"
+                id="first_name"
+                placeholder=""
+                required
+            />
+            <label for="first_name">Vorname</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input
+                type="text"
+                class="form-control"
                 name="name"
                 id="name"
                 placeholder=""

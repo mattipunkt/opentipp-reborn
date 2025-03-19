@@ -3,15 +3,20 @@
         Nutzer bearbeiten
     </h1>
     <br>
-    @if('unaccepted_users')
     <h3>Neue Nutzer</h3>
+        @if(count($unaccepted_users)>0) 
         <p>Diese Nutzer müssen bestätigt werden, damit sie sich anmelden können.</p>
+        @else
+        <p>Wenn sich neue Nutzer registrieren, müssen sie erst von dir zugelassen werden. Diese Tauchen dann hier auf</p>
+        <b>...</b>
+        @endif
+        
         <ul class="list-group">
             @foreach($unaccepted_users as $user)
                 <li class="list-group-item">
                     <div class="d-flex justify-content-between">
                        <div>
-                           <b>Name:</b>Kommt noch<br>
+                           <b>Vorname:</b>{{ $user->first_name }}<br>
                             <b>Nutzername: </b>{{ $user->name }}<br>
                             <b>E-Mail-Adresse: </b>{{ $user->email }}<br>
                        </div>
@@ -23,10 +28,11 @@
                 </li>
             @endforeach
         </ul>
-    @endif
+        <br>
 
 
-    <br>
+
+
         <h3>User-Liste</h3>
         <ul class="list-group">
             @foreach($accepted_users as $user)
@@ -37,7 +43,7 @@
                 @endif
                     <div class="d-flex justify-content-between">
                        <div>
-                           <b>Name:</b> Kommt noch!<br>
+                           <b>Vorname:</b> {{ $user->first_name }}<br>
                             <b>Nutzername: </b>{{ $user->name }}<br>
                             <b>E-Mail-Adresse: </b>{{ $user->email }}<br>
                        </div>

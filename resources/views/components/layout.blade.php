@@ -41,9 +41,11 @@
                             <span class="visually-hidden">(current)</span></a
                         >
                     </li>
+                    <!--
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="bi bi-megaphone"> </i> Spezialtipps</a>
                     </li>
+                -->
                     <li class="nav-item">
                         <a class="nav-link" href="/ranks"><i class="bi bi-table"> </i> Punktetabelle</a>
                     </li>
@@ -85,7 +87,7 @@
                     @auth
                     <li class="nav-item">
                         <a class="nav-link">
-                            <i class="bi bi-user"> </i> 
+                            <i class="bi bi-person-fill"> </i> 
                             <i>Hallo, {{ Auth::user()->name }}!</i>
                         </a>
                     </li>
