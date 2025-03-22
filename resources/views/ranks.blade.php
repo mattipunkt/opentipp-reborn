@@ -19,8 +19,17 @@
         </li>
         @foreach($users as $user)
         <li class="list-group-item">
-            <div class="d-flex justify-content-between">
-                    <div>{{ $user->name }}</div>
+            <div class="d-flex justify-content-between align-items-center">
+                    
+                    <div class="d-flex align-items-center">
+                    <div class="align-middle">
+                        <img src="data:image/jpg;base64,{{ $user->profile_picture }}" class="rounded-circle align-middle" style="height: 40px; object-fit: contain; object-position: 100% 0;margin-right:5px" alt="{{ $user->name }}">
+                    </div>
+                    <div class="ml-5 align-middle">
+                        {{ $user->name }}
+                    </div>
+                        
+                    </div>
                     <div>{{ $user->points }}</div>     
             </div>
         </li>

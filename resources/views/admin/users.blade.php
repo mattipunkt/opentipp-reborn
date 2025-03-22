@@ -16,7 +16,7 @@
                 <li class="list-group-item">
                     <div class="d-flex justify-content-between">
                        <div>
-                           <b>Vorname:</b>{{ $user->first_name }}<br>
+                           <b>Vorname:</b> {{ $user->first_name }}<br>
                             <b>Nutzername: </b>{{ $user->name }}<br>
                             <b>E-Mail-Adresse: </b>{{ $user->email }}<br>
                        </div>

@@ -18,12 +18,12 @@
 </head>
 <body>
     <nav
-        class="navbar navbar-expand-md navbar-light bg-light"
+        class="navbar navbar-expand-md navbar-light bg-light align-items-center"
     >
         <div class="container">
             <a class="navbar-brand" href="/">openTipp</a>
             <button
-                class="navbar-toggler d-lg-none"
+                class="navbar-toggler d-lg-none align-items-center"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapsibleNavId"
@@ -33,8 +33,8 @@
             >
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+            <div class="collapse navbar-collapse align-items-center" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0 align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" href="/vote" aria-current="page"
                             ><i class="bi bi-123"> </i> Tippen
@@ -69,12 +69,7 @@
                 </ul>
                 <ul class="navbar-nav ms-auto text-end">
                     @auth
-                    <form action={{ route('logout') }} method="post">
-                        @csrf
-                        <li class="nav-item">
-                            <button class="nav-link"><i class="bi bi-door-closed"> </i> Logout</button>
-                        </li>
-                    </form>
+ 
                     @endauth
                     @guest
                     <li class="nav-item">
@@ -85,11 +80,24 @@
                     </li>
                     @endguest
                     @auth
-                    <li class="nav-item">
-                        <a class="nav-link">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-fill"> </i> 
                             <i>Hallo, {{ Auth::user()->name }}!</i>
                         </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profilepicture"><i class="bi bi-vignette"> </i> Profilbild ändern</a></li>
+                            <form action={{ route('logout') }} method="post">
+                                @csrf
+                            <li class="">
+                                <button class="dropdown-item"><i class="bi bi-door-closed"> </i> Logout</button>
+                            </li>
+                            </form>
+                        </ul>
+                    </li>
+                  
+                
+
                     </li>
                     @endauth
                     <li class="nav-item">

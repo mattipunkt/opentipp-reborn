@@ -13,14 +13,13 @@ class ProfilePictureController extends Controller
             return redirect('/login');
         }
         $request->validate([
-            'profile_picture' => 'required|image|mimes:jpeg,jpg,png,gif|max:2048'
+            'profile_picture' => 'required|image|mimes:jpeg,jpg,png,gif|max:8096'
         ]);
 
         $image = $request->file('profile_picture');
         $image = Image::read($image);
         $image->resize(100,100);
         $base64Image = base64_encode($image->toJpeg());
-
         $user = auth()->user();
         $user->profile_picture = $base64Image;
         $user->save();

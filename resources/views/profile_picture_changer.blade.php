@@ -1,6 +1,6 @@
 <x-layout>
     <h1>
-        Profilbild aendern
+        Profilbild ändern
     </h1>
     <br>
     <form method="post" action="/profilepicture" enctype="multipart/form-data">
@@ -15,6 +15,6 @@
             />
             <label for="profile_picture">Profilbild</label>
         </div>
-        <button type="submit" class="btn btn-primary">Profilbild aendern</button>
+        <button type="submit" class="btn btn-primary">Profilbild ändern</button>
     </form>
 </x-layout>
