@@ -46,8 +46,7 @@ RUN echo "DB_PASSWORD=$DB_PASSWORD" >> .env
 RUN sed -i 's/APP_DEBUG=true/APP_DEBUG=false/' .env
 
 RUN php artisan key:generate
-RUN php artisan migrate --no-interaction
-RUN php artisan oldb
+
 
 RUN chown -R www-data:www-data /var/www/html/vendor \
     && chmod -R 775 /var/www/html/vendor
@@ -100,4 +99,4 @@ WORKDIR /var/www/html
 # add all folders where files are being stored that require persistence. if needed, otherwise remove this line.
 VOLUME ["/var/www/html/storage/app"]
 
-CMD ["sh", "-c", "crond && nginx && php-fpm"]
+CMD ["sh", "-c", "php artisan migrate --no-interaction && php artisan oldb && crond && nginx && php-fpm"]
