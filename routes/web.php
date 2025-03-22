@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfilePictureController;
 
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 use App\Models\Game;
 use App\Models\Team;
 use App\Models\GameType;
@@ -14,15 +15,11 @@ use App\Models\User;
 use App\Models\Vote;
 
 $proxy_url    = getenv('PROXY_URL');
-$proxy_schema = getenv('PROXY_SCHEMA');
 
 if (!empty($proxy_url)) {
    URL::forceRootUrl($proxy_url);
 }
 
-if (!empty($proxy_schema)) {
-   URL::forceSchema($proxy_schema);
-}
 
 Route::get('/', function () {
     # dd(Game::getNextGames());
