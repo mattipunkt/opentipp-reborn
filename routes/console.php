@@ -43,6 +43,9 @@ function refreshGameData() {
             ]);
         }
     }
+    $file = fopen("/tmp/opentipp_last_update","w");
+    echo fwrite($file,time());
+    fclose($file);
 }
 
 Artisan::command('inspire', function () {

@@ -20,6 +20,7 @@ Route::get('/', function () {
     ]);
 });
 
+
 Route::get('/register', [AuthController::class, 'showRegister'])->name('show.register');
 Route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
 

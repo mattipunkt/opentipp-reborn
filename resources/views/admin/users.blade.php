@@ -65,4 +65,13 @@
             </li>
             @endforeach
         </ul>
+        <br><br>
+        <h3>
+            Letzte Aktualisierug der openLigaDB-Daten
+        </h3>
+        <p>
+            Dies dient hauptsächlich zu Debug-Zwecken, um zu schauen, ob alle Worker laufen.
+            <br>
+            <b>{{ $time_output }}</b> (UTC)
+        </p>
 </x-layout>

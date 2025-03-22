@@ -32,10 +32,21 @@ class AdminController extends Controller
                 User::where('id', $id)->update(['is_admin' => true])->save();
             }
         }
-        //dd(User::where('is_accepted', false)->get());
-        return view('admin.users', [
+        $file = '/tmp/opentipp_last_update';
+        if (file_exists($file)) {
+            $timestamp = file_get_contents($file);
+            $datetime = new \DateTime();
+            $datetime->setTimestamp((int)$timestamp);
+            $time_output = $datetime->format('H:i:s, d.m.Y');
+        }
+        else {
+            $time_output = "Keine Aktualisierungsdaten verfügbar.";
+        }
+
+            return view('admin.users', [
             "accepted_users" => User::where('is_accepted', true)->get(),
-            "unaccepted_users" => User::where('is_accepted', false)->get()
+            "unaccepted_users" => User::where('is_accepted', false)->get(),
+            "time_output" => $time_output,
         ]);
     }
 }
