@@ -9,6 +9,6 @@ echo "SESSION_DOMAIN"="$SESSION_DOMAIN" >> .env  # e.g mydomain.com
 
 php artisan key:generate
 
-php artisan migrate --no-interaction
+php artisan migrate --no-interaction --force
 php artisan oldb
 crond && nginx && php-fpm
