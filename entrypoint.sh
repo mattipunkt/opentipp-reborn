@@ -1,4 +1,5 @@
 #!/bin/sh
+cd /var/www/html
 
 cp .env.deploy .env
 echo "DB_USERNAME=$DB_USERNAME" >> .env
