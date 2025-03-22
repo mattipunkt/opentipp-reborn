@@ -13,7 +13,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: Build the Docker image
-        run: docker build . --file ./deploy/Dockerfile --tag mukkematti/opentipp:latest
+        run: docker compose  --file deploy/compose.yaml build
       - name: Push to Docker Hub
         run: |
           docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }} 

@@ -37,11 +37,9 @@ RUN composer install --no-dev --prefer-dist \
     && npm install \
     && npm run build
 
-RUN cp .env.example .env
+RUN cp .env.deploy .env
 
 RUN sed -i 's/APP_DEBUG=true/APP_DEBUG=false/' .env
-
-RUN touch database/database.sqlite
 
 RUN php artisan key:generate
 RUN php artisan migrate --no-interaction

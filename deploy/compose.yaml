@@ -1,7 +1,7 @@
 services:
   opentipp:
     restart: unless-stopped
-    container_name: opentipp
+    image: mukkematti/opentipp:latest
     build:
       context: ../
       dockerfile: ./deploy/Dockerfile
@@ -10,6 +10,24 @@ services:
       - opentipp:/var/www/html/storage/app
     ports:
       - "8080:80"
+    environment:
+      - DB_USERNAME=opentipp
+      - DB_PASSWORD=opentipp
+    requires:
+      - db
+
+  db:
+    restart: unless-stopped
+    image: postgres:latest
+    shm_size: 128mb
+    environment:
+      - POSTGRES_PASSWORD=opentipp
+      - POSTGRES_USER=opentipp
+      - POSTGRES_DB=opentipp
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - opentipp_db:/var/lib/postgresql/data
 
 volumes:
   opentipp:
+  opentipp_db:
