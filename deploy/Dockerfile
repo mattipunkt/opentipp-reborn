@@ -38,14 +38,6 @@ RUN composer install --no-dev --prefer-dist \
     && npm install \
     && npm run build
 
-RUN cp .env.deploy .env
-RUN echo "DB_USERNAME=$DB_USERNAME" >> .env
-RUN echo "DB_PASSWORD=$DB_PASSWORD" >> .env
-RUN echo "APP_URL=$APP_URL" >> .env
-
-#RUN sed -i 's/APP_DEBUG=true/APP_DEBUG=false/' .env
-
-RUN php artisan key:generate
 
 
 RUN chown -R www-data:www-data /var/www/html/vendor \
@@ -95,9 +87,9 @@ COPY ./deploy/php.ini "$PHP_INI_DIR/conf.d/app.ini"
 
 WORKDIR /var/www/html
 
-
+RUN chmod +x entrypoint.sh
 
 # add all folders where files are being stored that require persistence. if needed, otherwise remove this line.
 VOLUME ["/var/www/html/storage/app"]
 
-CMD ["sh", "-c", "php artisan migrate --no-interaction && php artisan oldb && crond && nginx && php-fpm"]
+ENTRYPOINT [ "./entrypoint.sh" ]
