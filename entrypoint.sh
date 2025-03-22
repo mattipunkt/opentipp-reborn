@@ -8,6 +8,11 @@ echo "APP_URL=$APP_URL" >> .env # e.g. https://mydomain.com
 echo "SESSION_DOMAIN"="$SESSION_DOMAIN" >> .env  # e.g mydomain.com
 
 php artisan key:generate
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+
 
 php artisan migrate --no-interaction --force
 php artisan oldb
