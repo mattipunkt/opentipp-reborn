@@ -10,13 +10,7 @@ use App\Models\GameType;
 use App\Models\User;
 use App\Models\Vote;
 
-Artisan::command('inspire', function () {
-    /** @var ClosureCommand $this */
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
-
-
-Schedule::call(function () {
+function refreshGameData() {
     $url = 'https://api.openligadb.de/getmatchdata/bl2/2024';
     $obj = json_decode(file_get_contents($url), true);
     foreach ($obj as $match) {
@@ -49,6 +43,20 @@ Schedule::call(function () {
             ]);
         }
     }
+}
+
+Artisan::command('inspire', function () {
+    /** @var ClosureCommand $this */
+    $this->comment(Inspiring::quote());
+})->purpose('Display an inspiring quote');
+
+Artisan::command('oldb', function () {
+    refreshGameData();
+});
+
+
+Schedule::call(function () {
+    refreshGameData();
 })->everyTenMinutes();
 
 

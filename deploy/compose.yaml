@@ -1,0 +1,15 @@
+services:
+  opentipp:
+    restart: unless-stopped
+    container_name: opentipp
+    build:
+      context: ../
+      dockerfile: ./deploy/Dockerfile
+    # allocate as many volumes as necessary, if needed.
+    volumes:
+      - opentipp:/var/www/html/storage/app
+    ports:
+      - "8080:80"
+
+volumes:
+  opentipp:
