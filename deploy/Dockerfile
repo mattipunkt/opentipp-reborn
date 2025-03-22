@@ -38,12 +38,12 @@ RUN composer install --no-dev --prefer-dist \
     && npm install \
     && npm run build
 
-RUN cp .env.deploy .env
+#RUN cp .env.deploy .env
 RUN echo "DB_USERNAME=$DB_USERNAME" >> .env
 RUN echo "DB_PASSWORD=$DB_PASSWORD" >> .env
+RUN echo "APP_URL=$APP_URL" >> .env
 
-
-RUN sed -i 's/APP_DEBUG=true/APP_DEBUG=false/' .env
+# RUN sed -i 's/APP_DEBUG=true/APP_DEBUG=false/' .env
 
 RUN php artisan key:generate
 
