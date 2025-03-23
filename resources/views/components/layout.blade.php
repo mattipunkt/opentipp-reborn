@@ -87,7 +87,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/profilepicture"><i class="bi bi-vignette"> </i> Profilbild ändern</a></li>
-                            <form action={{ route('logout') }} method="post">
+                            <form action="/logout" method="post">
                                 @csrf
                             <li class="">
                                 <button class="dropdown-item"><i class="bi bi-door-closed"> </i> Logout</button>
