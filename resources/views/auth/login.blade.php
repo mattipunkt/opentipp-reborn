@@ -10,7 +10,7 @@
             </div>
         @endforeach
     @endif  
-    <form action="{{ route('login') }}" method="post">  
+    <form action="/login" method="post">  
         @csrf
         <div class="form-floating mb-3">
             <input
