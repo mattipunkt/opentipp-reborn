@@ -10,11 +10,8 @@ echo "PROXY_URL=$PROXY_URL" >> .env
 
 
 php artisan key:generate
-php artisan config:clear
-php artisan cache:clear
-php artisan route:clear
-php artisan view:clear
-
+php artisan optimize:clear
+php artisan optimize
 
 php artisan migrate --no-interaction --force
 php artisan oldb
