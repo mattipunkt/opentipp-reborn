@@ -20,6 +20,12 @@ services:
       - SESSION_DOMAIN=mydomain.com # this should be the same as APP_URL, but without http/https
       - PROXY_URL=https://mydomain.com # (optional) if you use a reverse proxy, put the url here
       - PROXY_SCHEMA=https # (optional) if you use a reverse proxy, put the protocol here
+      - MAIL_MAILER=smtp # write this if you want mail and fill out the other mail-variables
+      - MAIL_HOST=mail.example.com # smtp server name
+      - MAIL_PORT=587 # smtp port
+      - MAIL_USERNAME=user@example.com # smtp credetials
+      - MAIL_PASSWORD=password123 # stmp credentials
+      - MAIL_FROM_ADDRESS=opentipp@example.com # put the mail adress here, which will be shown as sent-adress
     depends_on:
       db:
         condition: service_healthy
