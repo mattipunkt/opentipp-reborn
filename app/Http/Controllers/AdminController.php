@@ -26,18 +26,23 @@ class AdminController extends Controller
                     "Account aktiviert!",
                     "Dein Account wurde erfolgreich aktiviert. Du kannst dich jetzt in das Tippspiel einloggen!"
                 ));
+                return redirect('/admin/users');
             } elseif ($activate == 'false') {
                 $id = $request->query('id');
                 Vote::where('user_id', $id)->delete();
                 User::where('id', $id)->delete();
+                return redirect('/admin/users');
             }
+            return redirect('/admin/users');
         }
         if($action == 'superuser') {
             $activate = $request->query('activate');
             if($activate == 'true') {
                 $id = $request->query('id');
                 User::where('id', $id)->update(['is_admin' => true])->save();
+                return redirect('/admin/users');
             }
+            return redirect('/admin/users');
         }
         $file = '/tmp/opentipp_last_update';
         if (file_exists($file)) {
@@ -49,7 +54,6 @@ class AdminController extends Controller
         else {
             $time_output = "Keine Aktualisierungsdaten verfügbar.";
         }
-
             return view('admin.users', [
             "accepted_users" => User::where('is_accepted', true)->get(),
             "unaccepted_users" => User::where('is_accepted', false)->get(),
