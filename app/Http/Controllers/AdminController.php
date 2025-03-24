@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DefaultMail;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Vote;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -19,6 +21,11 @@ class AdminController extends Controller
             if($activate == 'true') {
                 $id = $request->query('id');
                 User::where('id', $id)->update(['is_accepted' => true]);
+                Mail::to(User::find($id))->send(new DefaultMail(
+                    User::find($id),
+                    "Account aktiviert!",
+                    "Dein Account wurde erfolgreich aktiviert. Du kannst dich jetzt in das Tippspiel einloggen!"
+                ));
             } elseif ($activate == 'false') {
                 $id = $request->query('id');
                 Vote::where('user', $id)->delete();
