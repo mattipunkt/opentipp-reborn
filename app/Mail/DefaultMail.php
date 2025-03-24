@@ -32,7 +32,7 @@ class DefaultMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->subject_text,
+            subject: "[openTipp] ".$this->subject_text,
         );
     }
 
