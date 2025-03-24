@@ -39,7 +39,7 @@ class AdminController extends Controller
             $activate = $request->query('activate');
             if($activate == 'true') {
                 $id = $request->query('id');
-                User::where('id', $id)->update(['is_admin' => true])->save();
+                User::where('id', $id)->update(['is_admin' => true]);
                 return redirect('/admin/users');
             }
             return redirect('/admin/users');
