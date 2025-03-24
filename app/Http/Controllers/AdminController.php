@@ -28,7 +28,7 @@ class AdminController extends Controller
                 ));
             } elseif ($activate == 'false') {
                 $id = $request->query('id');
-                Vote::where('user', $id)->delete();
+                Vote::where('user_id', $id)->delete();
                 User::where('id', $id)->delete();
             }
         }
