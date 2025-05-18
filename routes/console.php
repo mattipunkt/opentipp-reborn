@@ -36,7 +36,7 @@ function refreshGameData() {
                 "is_finished" => true,
                 "is_started" => true
             ]);
-        } 
+        }
         if (DateTime::createFromFormat('Y-m-d\TH:i:s', $match["matchDateTime"]) < now()) {
             $game->update([
                 "is_started" => true
@@ -96,6 +96,8 @@ Schedule::call(function () {
                     $points = 5;
                 };
             }
+            $vote->points = $points;
+            $vote->save();
         }
 
     }
