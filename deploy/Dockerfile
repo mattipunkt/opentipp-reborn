@@ -93,6 +93,8 @@ VOLUME ["/var/www/html/database/dbfile"]
 
 RUN touch /var/www/html/database/dbfile/database.sqlite
 
+RUN chown -R www-data:www-data /var/www/html
+
 RUN chmod +x entrypoint.sh
 
 # add all folders where files are being stored that require persistence. if needed, otherwise remove this line.
