@@ -80,16 +80,14 @@ RUN apk add --no-cache \
 RUN apk add --no-cache busybox-suid \
 && echo "* * * * * cd /var/www/html && php artisan schedule:run >> /dev/null 2>&1" | crontab -
 
+VOLUME ["/var/www/html/database"]
+
 # copy files from the build stage
 COPY --from=build /var/www/html /var/www/html
 COPY ./deploy/nginx.conf /etc/nginx/http.d/default.conf
 COPY ./deploy/php.ini "$PHP_INI_DIR/conf.d/app.ini"
 
 WORKDIR /var/www/html
-
-RUN mkdir /var/www/html/database/dbfile
-
-VOLUME ["/var/www/html/database/dbfile"]
 
 RUN touch /var/www/html/database/dbfile/database.sqlite
 
