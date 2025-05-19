@@ -89,7 +89,7 @@ COPY ./deploy/php.ini "$PHP_INI_DIR/conf.d/app.ini"
 
 WORKDIR /var/www/html
 
-RUN touch /var/www/html/database/dbfile/database.sqlite
+RUN touch /var/www/html/database/database.sqlite
 
 RUN chown -R www-data:www-data /var/www/html
 
