@@ -80,7 +80,9 @@ RUN apk add --no-cache \
 RUN apk add --no-cache busybox-suid \
 && echo "* * * * * cd /var/www/html && php artisan schedule:run >> /dev/null 2>&1" | crontab -
 
-VOLUME ["/var/www/html/database"]
+RUN mkdir -p /app/db
+
+VOLUME ["/app/db"]
 
 # copy files from the build stage
 COPY --from=build /var/www/html /var/www/html
@@ -89,9 +91,12 @@ COPY ./deploy/php.ini "$PHP_INI_DIR/conf.d/app.ini"
 
 WORKDIR /var/www/html
 
-RUN touch /var/www/html/database/database.sqlite
+RUN touch /app/db/database.sqlite
 
 RUN chown -R www-data:www-data /var/www/html
+
+RUN chown -R www-data:www-data /app/db
+
 
 RUN chmod +x entrypoint.sh
 
