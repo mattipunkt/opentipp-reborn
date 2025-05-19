@@ -87,6 +87,12 @@ COPY ./deploy/php.ini "$PHP_INI_DIR/conf.d/app.ini"
 
 WORKDIR /var/www/html
 
+RUN mkdir /var/www/html/database/dbfile
+
+VOLUME ["/var/www/html/database/dbfile"]
+
+RUN touch /var/www/html/database/dbfile/database.sqlite
+
 RUN chmod +x entrypoint.sh
 
 # add all folders where files are being stored that require persistence. if needed, otherwise remove this line.

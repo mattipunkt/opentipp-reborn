@@ -27,7 +27,7 @@ function refreshGameData() {
                 "game_type" => GameType::firstOrCreate(["name" => $match["group"]["groupName"]])["id"]
             ]
         );
-        if ($match["matchIsFinished"] == true) {
+        if ($match["matchIsFinished"]) {
             $team1_score = end($match["matchResults"])["pointsTeam1"];
             $team2_score = end($match["matchResults"])["pointsTeam2"];
             $game->update([

@@ -20,6 +20,10 @@ class VoteController extends Controller
             $gametype_id = $request->query('gt');
         } else {
             $nextGame = Game::getNextGames()->first();
+            if ($nextGame == null) {
+                $nextGame = Game::all()->last();
+                session()->flash('status',  '🫨 Dieses Turnier ist beendet. Du kannst also nicht mehr abstimmen!');
+            }
             $gametype_id = $nextGame->gameType->id;
         }
         $votes = Vote::whereHas('game', function ($query) use ($gametype_id) {
@@ -42,20 +46,20 @@ class VoteController extends Controller
             $gameId = $vote['game_id'];
             $team1Score = $vote['team1_score'];
             $team2Score = $vote['team2_score'];
-            
+
             $voteInstance = Vote::where('game_id', $gameId)->where('user_id', auth()->id())->first();
             if (!$voteInstance) {
                 $voteInstance = new Vote();
                 $voteInstance->game_id = $gameId;
                 $voteInstance->user_id = auth()->id();
             }
-            
+
             // Hier speicherst du die Votes in der Datenbank
             $voteInstance->team1_vote = $team1Score;
             $voteInstance->team2_vote = $team2Score;
             $voteInstance->save();
         }
-        
+
         return redirect()->back()->with('success', 'Votes erfolgreich gespeichert!');
     }
 }

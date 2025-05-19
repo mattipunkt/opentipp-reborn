@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function showLogin() 
+    public function showLogin()
     {
         return view('auth.login');
     }
@@ -29,7 +29,7 @@ class AuthController extends Controller
                 'password' => 'required|string|min:8|confirmed'
             ]
         );
-        
+
         $firstUser = User::count() === 0;
         $user = User::create($validated);
 
@@ -40,7 +40,7 @@ class AuthController extends Controller
             Auth::login($user);
         } else {
             $user->is_accepted = false;
-            $user->save;
+            $user->save();
             session()->flash('status', '🚀 Registrierung erfolgreich! Der Account muss jedoch noch manuell vom Admin aktiviert werden. Wenn es soweit ist, erhältst du eine E-Mail!');
         }
 
@@ -73,7 +73,7 @@ class AuthController extends Controller
         );
     }
 
-    public function logout(Request $request) 
+    public function logout(Request $request)
     {
         Auth::logout();
 
