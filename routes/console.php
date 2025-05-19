@@ -57,6 +57,16 @@ Artisan::command('oldb', function () {
     refreshGameData();
 });
 
+# Debug function for testing the point-counting function
+Artisan::command('dbug:votes', function () {
+    $votes = Vote::all();
+    foreach ($votes as $vote) {
+        $game = $vote->game;
+        $vote->team1_vote = $game->team1_score;
+        $vote->team2_vote = $game->team2_score;
+        $vote->save();
+    }
+});
 
 Schedule::call(function () {
     refreshGameData();
