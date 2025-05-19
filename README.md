@@ -9,6 +9,8 @@ services:
   opentipp:
     restart: unless-stopped
     image: mukkematti/opentipp:latest
+    volumes:
+      - opentipp_db:/app/db
     ports:
       - "8080:80" # change this to whatever you want
     environment:
@@ -23,10 +25,12 @@ services:
       - MAIL_PASSWORD=password123 # stmp credentials
       - MAIL_FROM_ADDRESS=opentipp@example.com # put the mail adress here, which will be shown as sent-adress
 
+volumes:
+  opentipp_db:
 
 ```
 
-
+I really recommend using a Docker Volume for the db. Otherwise you will get permission problems.
 
 ## Development
 **on \*nix-Systems**
