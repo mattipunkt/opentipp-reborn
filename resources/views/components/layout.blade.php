@@ -14,6 +14,10 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
+
+        [data-bs-theme="dark"] .navbar-brand img {
+    filter: invert(1) hue-rotate(180deg);
+}
     </style>
 
 </head>
@@ -22,7 +26,7 @@
         class="navbar navbar-expand-md align-items-center"
     >
         <div class="container">
-            <a class="navbar-brand" href="/">openTipp</a>
+            <a class="navbar-brand" href="/"><img src="/logo.svg" alt="openTipp" height="24"/></a>
             <button
                 class="navbar-toggler d-lg-none align-items-center"
                 type="button"

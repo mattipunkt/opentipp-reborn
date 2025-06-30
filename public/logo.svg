@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="135.75662mm"
+   height="32.365013mm"
+   viewBox="0 0 135.75662 32.365013"
+   version="1.1"
+   id="svg1"
+   xml:space="preserve"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs1"><rect
+       x="257.98743"
+       y="171.99161"
+       width="478.99664"
+       height="94.595383"
+       id="rect1" /></defs><g
+     id="layer1"
+     transform="translate(-41.565803,-38.391578)"><g
+       fill="none"
+       stroke="currentColor"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-miterlimit="10"
+       stroke-width="1"
+       id="g2"
+       transform="matrix(1.4071829,0,0,1.4071829,41.565707,36.984298)"
+       style="stroke-width:0.99987;stroke-dasharray:none"><path
+         d="M 11.5,1.5 3.722,4.722 0.5,12.5 3.722,20.278 11.5,23.5 19.278,20.278 22.5,12.5 19.278,4.722 Z"
+         id="path1"
+         style="stroke-width:0.99987;stroke-dasharray:none" /><path
+         d="m 8.492,17.5 -1.87,-6.121 4.89,-3.564 4.892,3.564 -1.868,6.12 z M 14.637,2.8 11.513,4.134 8.376,2.794 M 3.244,5.875 3.6,9.902 0.772,13.157 m 2.166,5.229 3.685,0.85 1.783,2.982 m 6.225,-0.015 1.773,-2.97 3.656,-0.842 M 22.236,13.136 19.424,9.899 19.777,5.905 M 11.513,4.134 v 3.68 m 4.891,3.708 3.02,-1.623 m -4.888,7.601 1.868,1.733 M 8.492,17.5 6.623,19.235 M 3.6,9.902 6.622,11.379"
+         id="path2"
+         style="stroke-width:0.99987;stroke-dasharray:none" /></g><text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,14.789487,-2.7303668)"
+       id="text1"
+       style="font-size:74.6667px;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect1);fill:#000000;stroke-width:5.3178;stroke-dasharray:none"><tspan
+         x="257.98828"
+         y="238.05472"
+         id="tspan3"><tspan
+           style="font-weight:600;font-family:Poppins;-inkscape-font-specification:'Poppins Semi-Bold'"
+           id="tspan2">openTipp</tspan></tspan></text></g></svg>
