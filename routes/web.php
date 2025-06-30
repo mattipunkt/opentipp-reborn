@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\ProfilePictureController;
+use App\Http\Controllers\ProfileController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,9 @@ Route::get('/ranks', function () {
         'users' => User::orderBy('points', 'desc')->get(),
     ]);
 });
+
+// User
+Route::get('/user/{username}', [ProfileController::class, 'showProfile'])->name('show.profile');
 
 //Profilbild
 Route::get('/profilepicture', [ProfilePictureController::class, 'viewProfilePictureChanger'])->name('show.profilepicture');

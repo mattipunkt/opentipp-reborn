@@ -25,7 +25,7 @@
         </div>
 
         <!-- Punkt-Eingabe -->
-        <div class="col-12 col-md-2 mb-1 mb-md-0">
+        <div class="col-12 col-md-1 mb-1 mb-md-0">
             <div class="d-flex justify-content-center justify-content-md-start align-items-center gap-2">
                 <input type="hidden" name="votes[{{ $vote->game->id }}][game_id]" value="{{ $vote->game->id }}">
                 <input class="form-control text-center px-1" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team1_score]" value="{{ $vote->team1_vote }}" @if($vote->game->is_started) disabled @endif>
@@ -35,7 +35,7 @@
         </div>
 
         <!-- Team 2 Name -->
-        <div class="col-12 col-md-2">
+        <div class="col-12 col-md-2 text-md-end">
             <span class="d-block text-truncate">{{ $vote->game->team2->name }}</span>
         </div>
 
