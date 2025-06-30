@@ -13,7 +13,7 @@ class ProfilePictureController extends Controller
             return redirect('/login');
         }
         $request->validate([
-            'profile_picture' => 'required|image|mimes:jpeg,jpg,png,gif|max:8096'
+            'profile_picture' => 'required|image|mimes:jpeg,jpg,png'
         ]);
 
         $image = $request->file('profile_picture');
