@@ -18,7 +18,14 @@ class ProfilePictureController extends Controller
 
         $image = $request->file('profile_picture');
         $image = Image::read($image);
-        $image->resize(100,100);
+        // Mittelpunkt und quadratischer Crop
+        $width = $image->width();
+        $height = $image->height();
+        $side = min($width, $height);
+        $x = intval(($width - $side) / 2);
+        $y = intval(($height - $side) / 2);
+        $image->crop($side, $side, $x, $y);
+        $image->resize(100, 100);
         $base64Image = base64_encode($image->toJpeg());
         $user = auth()->user();
         $user->profile_picture = $base64Image;
