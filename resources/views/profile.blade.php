@@ -5,7 +5,7 @@
     </p>
 
     <div class="row mb-4">
-        <div class="col-3 col-md-1">
+        <div class="col-3 col-md-2">
             <img src="data:image/jpg;base64,{{ $user->profile_picture }}" class="rounded-circle align-middle" alt="{{ $user->name }}">
         </div>
         <div class="col-9">

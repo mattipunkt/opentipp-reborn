@@ -19,7 +19,7 @@
         </li>
         @foreach($users as $user)
         <li class="list-group-item">
-            <a href="/user/{{ $user->name }}" class="link-dark link-offset-2 link-underline link-underline-opacity-0">
+            <a href="/user/{{ $user->name }}" class="link-body-emphasis link-offset-2 link-underline link-underline-opacity-0">
             <div class="d-flex justify-content-between align-items-center">
                     
                     <div class="d-flex align-items-center">
