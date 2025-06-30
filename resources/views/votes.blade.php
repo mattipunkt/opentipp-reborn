@@ -16,6 +16,9 @@
     @csrf
     @foreach($votes as $vote)
     <div class="row mb-4 mb-md-2 align-items-center text-center text-md-start">
+        <div class="col-12 col-md-2">
+            <span class="d-block text-truncate"><b>{{ $vote->game->time->format('d.m.Y, H:i') }}</b></span>
+        </div>
         <!-- Team 1 Name -->
         <div class="col-12 col-md-2 mb-1 mb-md-0">
             <span class="d-block text-truncate">{{ $vote->game->team1->name }}</span>
@@ -35,9 +38,7 @@
         <div class="col-12 col-md-2">
             <span class="d-block text-truncate">{{ $vote->game->team2->name }}</span>
         </div>
-        <div class="col-12 col-md-3">
-            <span class="d-block text-truncate"><b>[{{ $vote->game->time->format('d.m.Y, H:i') }}]</b></span>
-        </div>
+
 
     </div>
     @endforeach
