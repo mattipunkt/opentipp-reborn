@@ -36,7 +36,8 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
-          dockerfile: deploy/Dockerfile
+          context: .
+          dockerfile: ./deploy/Dockerfile
           push: true
           provenance: false
           tags: |
