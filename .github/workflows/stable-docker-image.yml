@@ -1,0 +1,48 @@
+name: Build and Push Docker Image
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag for the image (e.g., v1.2.3)'
+        required: true
+        default: 'latest'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+      
+      - name: Set image tag
+        id: set_tag
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "TAG=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+          else
+            echo "TAG=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          fi
+
+      - name: Build and push image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          provenance: false
+          tags: |
+            ghcr.io/mattipunkt/opentipp-reborn:${{ env.TAG }}
+            ghcr.io/mattipunkt/opentipp-reborn:latest
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.description=opentipp container image
+            org.opencontainers.image.licenses=MIT
