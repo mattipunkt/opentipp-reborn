@@ -32,8 +32,11 @@
         </div>
 
         <!-- Team 2 Name -->
-        <div class="col-12 col-md-5" style="padding-left: 8px;">
+        <div class="col-12 col-md-2">
             <span class="d-block text-truncate">{{ $vote->game->team2->name }}</span>
+        </div>
+        <div class="col-12 col-md-3">
+            <span class="d-block text-truncate"><b>[{{ $vote->game->time->format('d.m.Y, H:i') }}]</b></span>
         </div>
 
     </div>
