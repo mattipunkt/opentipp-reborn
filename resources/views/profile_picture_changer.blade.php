@@ -9,13 +9,23 @@
     </p>
     <form method="post" action="/profilepicture" enctype="multipart/form-data">
         @csrf
-        <div class="form-floating mb-3">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <div class="form mb-3">
             <input
                 type="file"
                 class="form-control"
                 name="profile_picture"
                 id="profile_picture"
                 placeholder=""
+                accept="image/jpeg,image/jpg,image/png"
             />
             <label for="profile_picture">Profilbild</label>
         </div>
