@@ -32,7 +32,7 @@
         </div>
 
         <!-- Team 2 Name -->
-        <div class="col-12 col-md-1" style="padding-left: 8px;">
+        <div class="col-12 col-md-5" style="padding-left: 8px;">
             <span class="d-block text-truncate">{{ $vote->game->team2->name }}</span>
         </div>
 
