@@ -15,7 +15,7 @@
 services:
   opentipp:
     restart: unless-stopped
-    image: mukkematti/opentipp:latest
+    image: ghcr.io/mattipunkt/opentipp-reborn:latest
     volumes:
       - opentipp_db:/app/db
     ports:
