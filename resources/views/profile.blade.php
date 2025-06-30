@@ -1,17 +1,19 @@
 <x-layout>
-    <p>
+
+    <p class="mb-4">
         <a href="/ranks" class="link-secondary link-offset-2 link-underline-opacity-25"><i class="bi bi-arrow-left"> </i> Zurück zur Tabelle</a>
     </p>
 
-    <div class="row mb-2">
+    <div class="row mb-4">
         <div class="col-3 col-md-1">
             <img src="data:image/jpg;base64,{{ $user->profile_picture }}" class="rounded-circle align-middle" alt="{{ $user->name }}">
         </div>
         <div class="col-9">
-            <h2>{{ $user->name }}</h2>
+            <h2 class="mb-1">{{ $user->name }}</h2>
             <p>
-                Punkte: <b>{{ $user->points }}</b><br>
-                Registriert am: <b>{{ $user->created_at->format('d.m.Y') }}</b>
+                <i>{{ $user->first_name }}</i><br>
+                Punkte: <b>{{ $user->points }}</b>
+                
             </p>
         </div>
     </div>

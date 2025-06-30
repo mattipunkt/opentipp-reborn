@@ -1,15 +1,35 @@
 <x-layout>
+
     <h1>
         Tippen!
     </h1>
-    <ul class="nav nav-pills nav-justified">
+    <p>
+        Hier kannst du deine Tipps abgeben. Vergiss nicht, vor Spielbeginn zu tippen und dine Tipps zu speichern!
+    </p>
+    <ul class="nav nav-underline nav-underline-info d-md-inline-flex d-none mb-3">
         @foreach($gametypes as $gt)
         <li class="nav-item">
           <a class="nav-link @if($gt->id == $gtid) active @endif" aria-current="page" href="vote?gt={{ $gt->id }}">{{ $gt->name }}</a>
         </li>
         @endforeach
-
     </ul>
+    
+    <div class="dropdown d-md-none">
+        
+        <a class="btn btn-outline-info mx-auto dropdown-toggle w-100" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        @foreach($gametypes as $gt) 
+            @if($gt->id == $gtid) {{ $gt->name }} @endif
+        @endforeach
+        </a>
+
+        <ul class="dropdown-menu w-100">
+        @foreach($gametypes as $gt) 
+            <li><a class="dropdown-item" href="vote?gt={{ $gt->id }}">{{ $gt->name }}</a></li>
+        @endforeach
+        </ul>
+    </div>
+
+
 
     <br>
     <form method="post" action="/vote?gt={{ $gtid }}">
@@ -43,7 +63,7 @@
     </div>
     @endforeach
     <div class="text-center text-md-start mb-3">
-        <button type="submit" class="btn btn-info">
+        <button type="submit" class="btn btn-info w-auto">
             Speichern
         </button>
     </div>
