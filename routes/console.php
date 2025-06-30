@@ -11,7 +11,7 @@ use App\Models\User;
 use App\Models\Vote;
 
 function refreshGameData() {
-    $url = 'https://api.openligadb.de/getmatchdata/bl2/2024';
+    $url = 'https://api.openligadb.de/getmatchdata/Fef/2025';
     $obj = json_decode(file_get_contents($url), true);
     foreach ($obj as $match) {
         $game = Game::firstOrCreate(

@@ -25,6 +25,7 @@ Route::get('/', function () {
     # dd(Game::getNextGames());
     return view('home', [
         'nextGames' => Game::getNextGames(),
+        'users' => User::orderBy('points', 'desc')->get(),
     ]);
 });
 

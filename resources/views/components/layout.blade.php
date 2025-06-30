@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" data-bs-theme="auto">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,10 +15,11 @@
             font-family: 'Poppins', sans-serif;
         }
     </style>
+
 </head>
 <body>
     <nav
-        class="navbar navbar-expand-md navbar-light bg-light align-items-center"
+        class="navbar navbar-expand-md align-items-center"
     >
         <div class="container">
             <a class="navbar-brand" href="/">openTipp</a>
@@ -33,8 +34,8 @@
             >
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse align-items-center" id="collapsibleNavId">
-                <ul class="navbar-nav me-auto mt-2 mt-lg-0 align-items-center">
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="/vote" aria-current="page"
                             ><i class="bi bi-123"> </i> Tippen
@@ -50,9 +51,7 @@
                         <a class="nav-link" href="/ranks"><i class="bi bi-table"> </i> Punktetabelle</a>
                     </li>
                     @admin
-                    <li class="nav-item">
-                        <div style="margin-left: 10px;margin-right: 10px;margin-top:50%" class="vr ml-5 mr-5"></div>
-                    </li>
+
                     <li class="nav-item">
                         <div class="nav-link" href="/admin/users">
                             <span class="badge text-bg-info">Admin-Bereich</span>
@@ -67,7 +66,7 @@
                     </li>
                     @endadmin
                 </ul>
-                <ul class="navbar-nav ms-auto text-end">
+                <ul class="navbar-nav ms-auto">
                     @auth
  
                     @endauth
@@ -81,7 +80,7 @@
                     @endguest
                     @auth
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-fill"> </i> 
                             <i>Hallo, {{ Auth::user()->name }}!</i>
                         </a>
@@ -121,5 +120,19 @@
         {{ $slot }}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script>
+            ;(function () {
+    const htmlElement = document.querySelector("html")
+    if(htmlElement.getAttribute("data-bs-theme") === 'auto') {
+        function updateTheme() {
+            document.querySelector("html").setAttribute("data-bs-theme",
+                window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+        }
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme)
+        updateTheme()
+    }
+})()
+        </script>
 </body>
 </html>
