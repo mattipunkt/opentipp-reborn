@@ -92,7 +92,7 @@ function calcPoints()
                 } elseif ($game->team1_score < $game->team2_score) {
                     $data_winner = 2;
                 }
-                if ($vote->team1_vote == $vote->team2_score) {
+                if ($vote->team1_vote == $vote->team2_vote) {
                     $voter_winner = 0;
                 } elseif ($vote->team1_vote > $vote->team2_vote) {
                     $voter_winner = 1;
