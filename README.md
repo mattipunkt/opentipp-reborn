@@ -21,6 +21,7 @@ services:
     ports:
       - "8080:80" # change this to whatever you want
     environment:
+      - TZ=Europe/Berlin # see php timezone informations for possible values
       - APP_URL=https://mydomain.com # your domain at which the app will be reached (with http/https)
       - SESSION_DOMAIN=mydomain.com # this should be the same as APP_URL, but without http/https
       - PROXY_URL=https://mydomain.com # (optional) if you use a reverse proxy, put the url here
