@@ -73,7 +73,7 @@ Schedule::call(function () {
     refreshGameData();
 })->everyTenMinutes();
 
-function calcPoints()
+function calcPoints(): void
 {
     $votes = Vote::all();
 
@@ -81,9 +81,8 @@ function calcPoints()
         if ($vote->game->is_finished) {
             $points = 0;
             $game = $vote->game;
-            if ($vote->team1_vote == null || $vote->team2_vote == null) {
-                $points = 0;
-                echo 'nullVotes';
+            if (!isset($vote->team1_vote) || !isset($vote->team2_vote)) {
+                continue;
             } else {
                 if ($game->team1_score == $game->team2_score) {
                     $data_winner = 0;
@@ -99,7 +98,6 @@ function calcPoints()
                 } elseif ($vote->team1_vote < $vote->team2_vote) {
                     $voter_winner = 2;
                 }
-
                 if ($voter_winner === $data_winner) {
                     $points = 1;
                     $data_differenz = $game->team1_score - $game->team2_score;
