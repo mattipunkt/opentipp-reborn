@@ -19,4 +19,5 @@ php artisan optimize
 
 php artisan migrate --no-interaction --force
 php artisan oldb
+php artisan calc:votes
 crond && nginx && php-fpm

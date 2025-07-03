@@ -44,7 +44,7 @@ function refreshGameData() {
         }
     }
     $file = fopen("/tmp/opentipp_last_update","w");
-    echo fwrite($file,time());
+    // echo fwrite($file,time());
     fclose($file);
 }
 
@@ -73,7 +73,7 @@ Schedule::call(function () {
 })->everyTenMinutes();
 
 
-Schedule::call(function () {
+function calcPoints() {
     $votes = Vote::all();
 
     foreach ($votes as $vote) {
@@ -82,6 +82,7 @@ Schedule::call(function () {
             $game = $vote->game;
             if($vote->team1_vote == null || $vote->team2_vote == null) {
                 $points = 0;
+                echo 'nullVotes';
             } else {
                 if ($game->team1_score == $game->team2_score) {
                     $data_winner = 0;
@@ -90,7 +91,7 @@ Schedule::call(function () {
                 } elseif ($game->team1_score < $game->team2_score) {
                     $data_winner = 2;
                 }
-                if ($vote->team1_vote == $game->team2_score) {
+                if ($vote->team1_vote == $vote->team2_score) {
                     $voter_winner = 0;
                 } elseif ($vote->team1_vote > $vote->team2_vote) {
                     $voter_winner = 1;
@@ -126,7 +127,7 @@ Schedule::call(function () {
         $user->points = $points;
         $user->save();
     }
-})->everyThirtyMinutes();
+};
 
 
 Schedule::call(function () {
@@ -141,3 +142,11 @@ Schedule::call(function () {
         }
     }
 })->hourly();
+
+Schedule::call(function() {
+    calcPoints();
+})->everyTenMinutes();
+
+Artisan::command('calc:votes', function () {
+    calcPoints();
+});

@@ -106,7 +106,7 @@
                     @endauth
                     <li class="nav-item">
                         <div class="nav-link">
-                            <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge text-bg-dark"><i class="bi bi-github"> </i> openTipp v1.0.3</a>
+                            <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge text-bg-dark"><i class="bi bi-github"> </i> openTipp v1.0.4</a>
                         </div>
                     </li>
                 </ul>
