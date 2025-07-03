@@ -80,31 +80,35 @@ Schedule::call(function () {
         if($vote->game->is_finished) {
             $points = 0;
             $game = $vote->game;
-            if ($game->team1_score == $game->team2_score) {
-                $data_winner = 0;
-            } elseif ($game->team1_score > $game->team2_score) {
-                $data_winner = 1;
-            } elseif ($game->team1_score < $game->team2_score) {
-                $data_winner = 2;
-            }
-            if ($vote->team1_vote == $game->team2_score) {
-                $voter_winner = 0;
-            } elseif ($vote->team1_vote > $vote->team2_vote) {
-                $voter_winner = 1;
-            } elseif ($vote->team1_vote < $vote->team2_vote) {
-                $voter_winner = 2;
-            }
-
-            if ($voter_winner === $data_winner) {
-                $points = 1;
-                $data_differenz = $game->team1_score - $game->team2_score;
-                $voter_differenz = $vote->team1_vote - $vote->team2_vote;
-                if ($data_differenz == $voter_differenz) {
-                    $points = 3;
+            if($vote->team1_vote == null || $vote->team2_vote == null) {
+                $points = 0;
+            } else {
+                if ($game->team1_score == $game->team2_score) {
+                    $data_winner = 0;
+                } elseif ($game->team1_score > $game->team2_score) {
+                    $data_winner = 1;
+                } elseif ($game->team1_score < $game->team2_score) {
+                    $data_winner = 2;
                 }
-                if ($vote->team1_vote == $game->team1_score && $vote->team2_vote == $game->team2_score) {
-                    $points = 5;
-                };
+                if ($vote->team1_vote == $game->team2_score) {
+                    $voter_winner = 0;
+                } elseif ($vote->team1_vote > $vote->team2_vote) {
+                    $voter_winner = 1;
+                } elseif ($vote->team1_vote < $vote->team2_vote) {
+                    $voter_winner = 2;
+                }
+
+                if ($voter_winner === $data_winner) {
+                    $points = 1;
+                    $data_differenz = $game->team1_score - $game->team2_score;
+                    $voter_differenz = $vote->team1_vote - $vote->team2_vote;
+                    if ($data_differenz == $voter_differenz) {
+                        $points = 3;
+                    }
+                    if ($vote->team1_vote == $game->team1_score && $vote->team2_vote == $game->team2_score) {
+                        $points = 5;
+                    };
+                }
             }
             $vote->points = $points;
             $vote->save();

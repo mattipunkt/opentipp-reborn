@@ -4,7 +4,7 @@
         Tippen!
     </h1>
     <p>
-        Hier kannst du deine Tipps abgeben. Vergiss nicht, vor Spielbeginn zu tippen und dine Tipps zu speichern!
+        Hier kannst du deine Tipps abgeben. Vergiss nicht, vor Spielbeginn zu tippen und deine Tipps zu speichern!
     </p>
     <ul class="nav nav-underline nav-underline-info d-md-inline-flex d-none mb-3">
         @foreach($gametypes as $gt)
@@ -48,9 +48,9 @@
         <div class="col-12 col-md-1 mb-1 mb-md-0">
             <div class="d-flex justify-content-center justify-content-md-start align-items-center gap-2">
                 <input type="hidden" name="votes[{{ $vote->game->id }}][game_id]" value="{{ $vote->game->id }}">
-                <input class="form-control text-center px-1" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team1_score]" value="{{ $vote->team1_vote }}" @if($vote->game->is_started) disabled @endif>
+                <input class="form-control text-center px-1" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team1_score]" value="{{ $vote->team1_vote }}" @if($vote->game->time->isPast()) disabled @endif>
                 <span>:</span>
-                <input class="form-control text-center px-1" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team2_score]" value="{{ $vote->team2_vote }}" @if($vote->game->is_started) disabled @endif>
+                <input class="form-control text-center px-1" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team2_score]" value="{{ $vote->team2_vote }}" @if($vote->game->time->isPast()) disabled @endif>
             </div>
         </div>
 

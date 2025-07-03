@@ -5,9 +5,15 @@
     <br>
     @if ($errors->any())
         @foreach ($errors->all() as $error)
+            @if ($errors->has('password'))
+            <div class="alert alert-danger" role="alert">
+                <strong>Fehler!</strong> {{ $errors->first('password') }}
+            </div>
+            @else
             <div class="alert alert-danger" role="alert">
                 <strong>Fehler!</strong> {{ $error }}
             </div>
+            @endif
         @endforeach
     @endif  
     <form action="/login" method="post">  
