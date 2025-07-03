@@ -1,10 +1,10 @@
 <?php
 
+use App\Models\Game;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Game;
 
 return new class extends Migration
 {
@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class, 'user_id')->onDelete('cascade');
             $table->foreignIdFor(Game::class, 'game_id')->onDelete('cascade');
-            $table->integer("team1_vote")->nullable();
-            $table->integer("team2_vote")->nullable();
-            $table->integer("points")->nullable();
+            $table->integer('team1_vote')->nullable();
+            $table->integer('team2_vote')->nullable();
+            $table->integer('points')->nullable();
             $table->timestamps();
         });
     }

@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\GameType;
 use App\Models\Game;
+use App\Models\GameType;
 use App\Models\Vote;
-use Auth;
+use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
-    public function viewVotes(Request $request) {
-        if (!auth()->check()) {
+    public function viewVotes(Request $request)
+    {
+        if (! auth()->check()) {
             session()->flash('status', '❌ Du hast vergessen dich anzumelden... (hoffentlich)');
+
             return redirect('/login');
         }
 
-        if($request->query('gt')) {
+        if ($request->query('gt')) {
             $gametype_id = $request->query('gt');
         } else {
             $nextGame = Game::getNextGames()->first();
             if ($nextGame == null) {
                 $nextGame = Game::all()->last();
-                session()->flash('status',  '🫨 Dieses Turnier ist beendet. Du kannst also nicht mehr abstimmen!');
+                session()->flash('status', '🫨 Dieses Turnier ist beendet. Du kannst also nicht mehr abstimmen!');
             }
             $gametype_id = $nextGame->gameType->id;
         }
@@ -31,16 +32,18 @@ class VoteController extends Controller
                 $query->where('id', $gametype_id);
             });
         })->where('user_id', auth()->id())
-        ->with('game.team1', 'game.team2') // Hier laden Sie die Beziehung game und dessen Beziehungen team1 und team2
-        ->get();
+            ->with('game.team1', 'game.team2') // Hier laden Sie die Beziehung game und dessen Beziehungen team1 und team2
+            ->get();
+
         return view('votes', [
-            "gametypes" => GameType::all(),
-            "gtid" => $gametype_id,
-            "votes" => $votes,
+            'gametypes' => GameType::all(),
+            'gtid' => $gametype_id,
+            'votes' => $votes,
         ]);
     }
 
-    public function storeVotes(Request $request) {
+    public function storeVotes(Request $request)
+    {
         $votes = $request->input('votes');
         foreach ($votes as $vote) {
             $gameId = $vote['game_id'];
@@ -48,8 +51,8 @@ class VoteController extends Controller
             $team2Score = $vote['team2_score'];
 
             $voteInstance = Vote::where('game_id', $gameId)->where('user_id', auth()->id())->first();
-            if (!$voteInstance) {
-                $voteInstance = new Vote();
+            if (! $voteInstance) {
+                $voteInstance = new Vote;
                 $voteInstance->game_id = $gameId;
                 $voteInstance->user_id = auth()->id();
             }

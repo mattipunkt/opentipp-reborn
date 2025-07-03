@@ -7,13 +7,15 @@ use Intervention\Image\Laravel\Facades\Image;
 
 class ProfilePictureController extends Controller
 {
-    public function saveProfilePicture(Request $request) {
-        if (!auth()->check()) {
+    public function saveProfilePicture(Request $request)
+    {
+        if (! auth()->check()) {
             session()->flash('status', '❌ Was versuchst du hier?');
+
             return redirect('/login');
         }
         $request->validate([
-            'profile_picture' => 'required|image|mimes:jpeg,jpg,png'
+            'profile_picture' => 'required|image|mimes:jpeg,jpg,png',
         ]);
 
         $image = $request->file('profile_picture');
@@ -24,14 +26,18 @@ class ProfilePictureController extends Controller
         $user->profile_picture = $base64Image;
         $user->save();
         session()->flash('status', '🎉 Profilbild erfolgreich geändert!');
+
         return redirect('/');
     }
 
-    public function viewProfilePictureChanger() {
-        if (!auth()->check()) {
+    public function viewProfilePictureChanger()
+    {
+        if (! auth()->check()) {
             session()->flash('status', '❌ Was versuchst du hier?');
+
             return redirect('/login');
         }
+
         return view('profile_picture_changer');
     }
 }

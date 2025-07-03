@@ -62,8 +62,8 @@ class User extends Authenticatable
             $games = Game::all();
             foreach ($games as $game) {
                 Vote::create([
-                    "user_id" => $user->id,
-                    "game_id" => $game->id
+                    'user_id' => $user->id,
+                    'game_id' => $game->id,
                 ]);
             }
         });
@@ -77,7 +77,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Vote::class);
     }
-
 
     public function isAdmin(): bool
     {

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Game extends Model
 {
@@ -16,14 +15,15 @@ class Game extends Model
         'time',
         'is_started',
         'game_type',
-        'openligadb_id'
+        'openligadb_id',
     ];
 
     protected $casts = [
-        'time' => 'datetime'
+        'time' => 'datetime',
     ];
 
-    public function team1() {
+    public function team1()
+    {
         return $this->hasOne(Team::class, 'id', 'team1_id');
     }
 
@@ -32,10 +32,10 @@ class Game extends Model
         return $this->hasOne(Team::class, 'id', 'team2_id');
     }
 
-    public function gameType() {
+    public function gameType()
+    {
         return $this->hasOne(GameType::class, 'id', 'game_type');
     }
-
 
     public static function getNextGames()
     {

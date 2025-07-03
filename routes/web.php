@@ -1,35 +1,28 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\VoteController;
-use App\Http\Controllers\ProfilePictureController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
-
-
+use App\Http\Controllers\ProfilePictureController;
+use App\Http\Controllers\VoteController;
+use App\Models\Game;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
-use App\Models\Game;
-use App\Models\Team;
-use App\Models\GameType;
-use App\Models\User;
-use App\Models\Vote;
 
-$proxy_url    = getenv('PROXY_URL');
+$proxy_url = getenv('PROXY_URL');
 
-if (!empty($proxy_url)) {
-   URL::forceRootUrl($proxy_url);
+if (! empty($proxy_url)) {
+    URL::forceRootUrl($proxy_url);
 }
 
-
 Route::get('/', function () {
-    # dd(Game::getNextGames());
+    // dd(Game::getNextGames());
     return view('home', [
         'nextGames' => Game::getNextGames(),
         'users' => User::orderBy('points', 'desc')->get(),
     ]);
 });
-
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('show.register');
 Route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
@@ -45,7 +38,6 @@ Route::get('/admin/users', [AdminController::class, 'viewUsers'])->name('admin.u
 Route::get('/vote', [VoteController::class, 'viewVotes'])->name('vote');
 Route::post('/vote', [VoteController::class, 'storeVotes'])->name('store.votes');
 
-
 // Ranking-Tabelle
 Route::get('/ranks', function () {
     return view('ranks', [
@@ -56,6 +48,6 @@ Route::get('/ranks', function () {
 // User
 Route::get('/user/{username}', [ProfileController::class, 'showProfile'])->name('show.profile');
 
-//Profilbild
+// Profilbild
 Route::get('/profilepicture', [ProfilePictureController::class, 'viewProfilePictureChanger'])->name('show.profilepicture');
 Route::post('/profilepicture', [ProfilePictureController::class, 'saveProfilePicture'])->name('save.profilepicture');

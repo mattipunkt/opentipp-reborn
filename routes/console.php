@@ -1,49 +1,50 @@
 <?php
 
+use App\Models\Game;
+use App\Models\GameType;
+use App\Models\Team;
+use App\Models\User;
+use App\Models\Vote;
 use Illuminate\Foundation\Console\ClosureCommand;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
-use App\Models\Game;
-use App\Models\Team;
-use App\Models\GameType;
-use App\Models\User;
-use App\Models\Vote;
 
-function refreshGameData() {
+function refreshGameData()
+{
     $url = 'https://api.openligadb.de/getmatchdata/Fef/2025';
     $obj = json_decode(file_get_contents($url), true);
     foreach ($obj as $match) {
         $game = Game::firstOrCreate(
             [
-                "openligadb_id" => $match["matchID"]
-            ]
-            );
-        $game->update(
-            [
-                "team1_id" => Team::firstOrCreate(["name" => $match["team1"]["teamName"]])["id"],
-                "team2_id" => Team::firstOrCreate(["name" => $match["team2"]["teamName"]])["id"],
-                "time" =>  DateTime::createFromFormat('Y-m-d\TH:i:s', $match["matchDateTime"]),
-                "game_type" => GameType::firstOrCreate(["name" => $match["group"]["groupName"]])["id"]
+                'openligadb_id' => $match['matchID'],
             ]
         );
-        if ($match["matchIsFinished"]) {
-            $team1_score = end($match["matchResults"])["pointsTeam1"];
-            $team2_score = end($match["matchResults"])["pointsTeam2"];
+        $game->update(
+            [
+                'team1_id' => Team::firstOrCreate(['name' => $match['team1']['teamName']])['id'],
+                'team2_id' => Team::firstOrCreate(['name' => $match['team2']['teamName']])['id'],
+                'time' => DateTime::createFromFormat('Y-m-d\TH:i:s', $match['matchDateTime']),
+                'game_type' => GameType::firstOrCreate(['name' => $match['group']['groupName']])['id'],
+            ]
+        );
+        if ($match['matchIsFinished']) {
+            $team1_score = end($match['matchResults'])['pointsTeam1'];
+            $team2_score = end($match['matchResults'])['pointsTeam2'];
             $game->update([
-                "team1_score" => $team1_score,
-                "team2_score" => $team2_score,
-                "is_finished" => true,
-                "is_started" => true
+                'team1_score' => $team1_score,
+                'team2_score' => $team2_score,
+                'is_finished' => true,
+                'is_started' => true,
             ]);
         }
-        if (DateTime::createFromFormat('Y-m-d\TH:i:s', $match["matchDateTime"]) < now()) {
+        if (DateTime::createFromFormat('Y-m-d\TH:i:s', $match['matchDateTime']) < now()) {
             $game->update([
-                "is_started" => true
+                'is_started' => true,
             ]);
         }
     }
-    $file = fopen("/tmp/opentipp_last_update","w");
+    $file = fopen('/tmp/opentipp_last_update', 'w');
     // echo fwrite($file,time());
     fclose($file);
 }
@@ -57,7 +58,7 @@ Artisan::command('oldb', function () {
     refreshGameData();
 });
 
-# Debug function for testing the point-counting function
+// Debug function for testing the point-counting function
 Artisan::command('dbug:votes', function () {
     $votes = Vote::all();
     foreach ($votes as $vote) {
@@ -72,15 +73,15 @@ Schedule::call(function () {
     refreshGameData();
 })->everyTenMinutes();
 
-
-function calcPoints() {
+function calcPoints()
+{
     $votes = Vote::all();
 
     foreach ($votes as $vote) {
-        if($vote->game->is_finished) {
+        if ($vote->game->is_finished) {
             $points = 0;
             $game = $vote->game;
-            if($vote->team1_vote == null || $vote->team2_vote == null) {
+            if ($vote->team1_vote == null || $vote->team2_vote == null) {
                 $points = 0;
                 echo 'nullVotes';
             } else {
@@ -108,7 +109,7 @@ function calcPoints() {
                     }
                     if ($vote->team1_vote == $game->team1_score && $vote->team2_vote == $game->team2_score) {
                         $points = 5;
-                    };
+                    }
                 }
             }
             $vote->points = $points;
@@ -127,8 +128,7 @@ function calcPoints() {
         $user->points = $points;
         $user->save();
     }
-};
-
+}
 
 Schedule::call(function () {
     $users = User::all();
@@ -136,14 +136,14 @@ Schedule::call(function () {
         $games = Game::all();
         foreach ($games as $game) {
             Vote::firstOrCreate([
-                "user_id" => $user->id,
-                "game_id" => $game->id
+                'user_id' => $user->id,
+                'game_id' => $game->id,
             ]);
         }
     }
 })->hourly();
 
-Schedule::call(function() {
+Schedule::call(function () {
     calcPoints();
 })->everyTenMinutes();
 

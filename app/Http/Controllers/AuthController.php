@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -26,7 +26,7 @@ class AuthController extends Controller
                 'name' => 'required|string|max:255',
                 'first_name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users',
-                'password' => 'required|string|min:8|confirmed'
+                'password' => 'required|string|min:8|confirmed',
             ]
         );
 
@@ -52,24 +52,26 @@ class AuthController extends Controller
         $validated = $request->validate(
             [
                 'email' => 'required|email',
-                'password' => 'required|string'
+                'password' => 'required|string',
             ]
         );
         $user = User::where('email', $validated['email'])->first();
 
-        if ($user && !$user->is_accepted) {
+        if ($user && ! $user->is_accepted) {
             session()->flash('status', '🚀 Dein Account wurde noch nicht freigeschaltet! Bitte warte, bis du eine E-Mail bekommst!');
+
             return redirect('/');
         }
 
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
+
             return redirect('/');
         }
 
         throw ValidationException::withMessages([
-                'credentials' => '🫣 Falsche Zugangsdaten!'
-            ]
+            'credentials' => '🫣 Falsche Zugangsdaten!',
+        ]
         );
     }
 

@@ -12,7 +12,7 @@ class Vote extends Model
         'game_id',
         'team1_vote',
         'team2_vote',
-        'points'
+        'points',
     ];
 
     public function user()
