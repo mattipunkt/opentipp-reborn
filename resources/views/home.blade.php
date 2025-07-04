@@ -3,7 +3,7 @@
         Startseite
     </h1>
     <div class="row mb-3">
-    <div class="col-12">
+    <div class="col-12 col-md-6 mb-3 mb-md-0">
         <div class="card">
             <div class="card-body">
                 <h4>
@@ -16,7 +16,7 @@
                             </div>
                             <div class="d-flex justify-content-center">
                                 <div class="">
-                                    {{ $game->team1->name }} 
+                                    {{ $game->team1->name }}
                                 </div>
                                 <span> -   </span>
                                 <div class="">
@@ -25,20 +25,50 @@
                             </div>
                         </div>
                         <br>
-                    @endforeach  
+                    @endforeach
             </div>
         </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4>Letze Spiele</h4>
+                    @foreach($lastGames as $game)
+                        <div>
+                            <div class="text-center fw-bold">
+                                {{ $game->time->format('d.m.Y,  H:i') }} Uhr
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <div class="">
+                                    {{ $game->team1->name }}
+                                </div>
+                                <span> -   </span>
+                                <div class="">
+                                    {{ $game->team2->name }}
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    @endforeach
+                </div>
+
+            </div>
+
         </div>
     </div>
     <div class="row">
         <div class="col-12 col-md-6 mb-3 mb-md-0">
             <div class="card">
                 <div class="card-body">
-                    <h4>Punktetabelle</h4>
+                    <a href="/ranks" class="link-body-emphasis link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+                        <h4 class="mb-3">Punktetabelle
+                             <i class="bi bi-box-arrow-up-right fs-6 d-inline-block align-middle"></i>
+                        </h4>
+                    </a>
                             @foreach($users as $user)
                             <li class="list-group-item">
                                 <div class="d-flex justify-content-between align-items-center">
-                                        
+
                                         <div class="d-flex align-items-center">
                                         <div class="align-middle">
                                             @if($user->profile_picture)
@@ -50,9 +80,9 @@
                                         <div class="ml-5 align-middle">
                                             {{ $user->name }}
                                         </div>
-                                            
+
                                         </div>
-                                        <div>{{ $user->points }}</div>     
+                                        <div>{{ $user->points }}</div>
                                 </div>
                             </li>
                             @endforeach
@@ -60,7 +90,7 @@
             </div>
         </div>
         @auth
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-4">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Dein Punktestand</h4>

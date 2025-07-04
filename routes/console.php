@@ -82,6 +82,8 @@ function calcPoints(): void
             $points = 0;
             $game = $vote->game;
             if (!isset($vote->team1_vote) || !isset($vote->team2_vote)) {
+                $vote->points = $points;
+                $vote->save();
                 continue;
             } else {
                 if ($game->team1_score == $game->team2_score) {

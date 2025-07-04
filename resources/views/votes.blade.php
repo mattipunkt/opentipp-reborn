@@ -13,17 +13,17 @@
         </li>
         @endforeach
     </ul>
-    
+
     <div class="dropdown d-md-none">
-        
+
         <a class="btn btn-outline-info mx-auto dropdown-toggle w-100" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        @foreach($gametypes as $gt) 
+        @foreach($gametypes as $gt)
             @if($gt->id == $gtid) {{ $gt->name }} @endif
         @endforeach
         </a>
 
         <ul class="dropdown-menu w-100">
-        @foreach($gametypes as $gt) 
+        @foreach($gametypes as $gt)
             <li><a class="dropdown-item" href="vote?gt={{ $gt->id }}">{{ $gt->name }}</a></li>
         @endforeach
         </ul>
@@ -48,9 +48,9 @@
         <div class="col-12 col-md-1 mb-1 mb-md-0">
             <div class="d-flex justify-content-center justify-content-md-start align-items-center gap-2">
                 <input type="hidden" name="votes[{{ $vote->game->id }}][game_id]" value="{{ $vote->game->id }}">
-                <input class="form-control text-center px-1" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team1_score]" value="{{ $vote->team1_vote }}" @if($vote->game->time->isPast()) disabled @endif>
+                <input class="form-control text-center px-1" pattern="[0-9]*" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team1_score]" value="{{ $vote->team1_vote }}" @if($vote->game->time->isPast()) disabled @endif>
                 <span>:</span>
-                <input class="form-control text-center px-1" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team2_score]" value="{{ $vote->team2_vote }}" @if($vote->game->time->isPast()) disabled @endif>
+                <input class="form-control text-center px-1" pattern="[0-9]*" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team2_score]" value="{{ $vote->team2_vote }}" @if($vote->game->time->isPast()) disabled @endif>
             </div>
         </div>
 
@@ -58,6 +58,12 @@
         <div class="col-12 col-md-2 text-md-end">
             <span class="d-block text-truncate">{{ $vote->game->team2->name }}</span>
         </div>
+        @if($vote->game->is_finished)
+            <div class="col-12 col-md-2 text-md-center">
+                <i>({{ $vote->game->team1_score }} : {{ $vote->game->team2_score }})</i>
+            </div>
+        @endif
+
 
 
     </div>

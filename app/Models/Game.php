@@ -22,6 +22,11 @@ class Game extends Model
         'time' => 'datetime',
     ];
 
+    public static function getLastGames()
+    {
+        return Game::where('is_finished', true)->orderBy('time', 'desc')->take(5)->get();
+    }
+
     public function team1()
     {
         return $this->hasOne(Team::class, 'id', 'team1_id');

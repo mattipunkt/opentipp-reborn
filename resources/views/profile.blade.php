@@ -6,14 +6,14 @@
 
     <div class="row mb-4">
         <div class="col-3 col-md-2">
-            <img src="data:image/jpg;base64,{{ $user->profile_picture }}" class="rounded-circle align-middle" alt="{{ $user->name }}">
+            <img src="data:image/jpg;base64,{{ $user->profile_picture }}" class="rounded-circle align-middle w-md-50 w-100" alt="Profilbild">
         </div>
         <div class="col-9">
             <h2 class="mb-1">{{ $user->name }}</h2>
             <p>
                 <i>{{ $user->first_name }}</i><br>
                 Punkte: <b>{{ $user->points }}</b>
-                
+
             </p>
         </div>
     </div>
@@ -51,13 +51,13 @@
                     {{ $game->game->team2->name }}
                 </div>
                 <div class="col-md-2 col-12">
-                    <b class="d-md-none">Punkte:</b>{{ $game->points }}
+                    <b class="d-md-none">Punkte: </b>{{ $game->points }}
                 </div>
             </div>
             <hr>
             @endforeach
         </div>
     </div>
-        
-        
+
+
 </x-layout>
