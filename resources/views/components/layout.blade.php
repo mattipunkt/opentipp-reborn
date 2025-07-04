@@ -15,6 +15,17 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
 
         [data-bs-theme="dark"] .navbar-brand img {
     filter: invert(1) hue-rotate(180deg);
@@ -65,7 +76,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/users">
-                            <i class="bi bi-people">  </i> 
+                            <i class="bi bi-people">  </i>
                             Nutzer
                         </a>
                     </li>
@@ -73,7 +84,7 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     @auth
- 
+
                     @endauth
                     @guest
                     <li class="nav-item">
@@ -86,7 +97,7 @@
                     @auth
                     <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-fill"> </i> 
+                            <i class="bi bi-person-fill"> </i>
                             <i>Hallo, {{ Auth::user()->name }}!</i>
                         </a>
                         <ul class="dropdown-menu">
@@ -99,21 +110,21 @@
                             </form>
                         </ul>
                     </li>
-                  
-                
+
+
 
                     </li>
                     @endauth
                     <li class="nav-item">
                         <div class="nav-link">
-                            <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge text-bg-dark"><i class="bi bi-github"> </i> openTipp v1.0.5</a>
+                            <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge text-bg-dark"><i class="bi bi-github"> </i> openTipp v1.0.6</a>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    
+
     <div class="container">
         <br>
         @if(session('status'))

@@ -1,5 +1,7 @@
 <x-layout>
-
+    @php
+        $tabIndex = 1;
+    @endphp
     <h1>
         Tippen!
     </h1>
@@ -48,9 +50,9 @@
         <div class="col-12 col-md-1 mb-1 mb-md-0">
             <div class="d-flex justify-content-center justify-content-md-start align-items-center gap-2">
                 <input type="hidden" name="votes[{{ $vote->game->id }}][game_id]" value="{{ $vote->game->id }}">
-                <input type="number" class="form-control text-center px-1" pattern="[0-9]*" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team1_score]" value="{{ $vote->team1_vote }}" @if($vote->game->time->isPast()) disabled @endif>
+                <input tabindex="{{ $tabIndex++ }}" type="number" class="form-control text-center px-1" pattern="[0-9]*" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team1_score]" value="{{ $vote->team1_vote }}" @if($vote->game->time->isPast()) disabled @endif>
                 <span>:</span>
-                <input type="number" class="form-control text-center px-1" pattern="[0-9]*" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team2_score]" value="{{ $vote->team2_vote }}" @if($vote->game->time->isPast()) disabled @endif>
+                <input tabindex="{{ $tabIndex++ }}" type="number" class="form-control text-center px-1" pattern="[0-9]*" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team2_score]" value="{{ $vote->team2_vote }}" @if($vote->game->time->isPast()) disabled @endif>
             </div>
         </div>
 
