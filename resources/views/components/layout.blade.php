@@ -77,7 +77,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/users">
                             <i class="bi bi-people">  </i>
-                            Nutzer
+                            Nutzer:innen
                         </a>
                     </li>
                     @endadmin

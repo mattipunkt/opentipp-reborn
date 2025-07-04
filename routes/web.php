@@ -52,3 +52,6 @@ Route::get('/user/{username}', [ProfileController::class, 'showProfile'])->name(
 // Profilbild
 Route::get('/profilepicture', [ProfilePictureController::class, 'viewProfilePictureChanger'])->name('show.profilepicture');
 Route::post('/profilepicture', [ProfilePictureController::class, 'saveProfilePicture'])->name('save.profilepicture');
+
+// Games
+Route::get('/match/{id}', [\App\Http\Controllers\GameController::class, 'showMatch'])->name('show.match');

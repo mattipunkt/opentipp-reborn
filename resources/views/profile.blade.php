@@ -1,9 +1,5 @@
 <x-layout>
 
-    <p class="mb-4">
-        <a href="/ranks" class="link-secondary link-offset-2 link-underline-opacity-25"><i class="bi bi-arrow-left"> </i> Zurück zur Tabelle</a>
-    </p>
-
     <div class="row mb-4">
         <div class="col-3 col-md-2">
             <img src="data:image/jpg;base64,{{ $user->profile_picture }}" class="rounded-circle align-middle w-md-50 w-100" alt="Profilbild">
@@ -35,25 +31,28 @@
                 </div>
             </div>
             @foreach ($games as $game)
-            <div class="row mb-3 mb-md-0 text-md-start text-center">
-                <div class="col-md-2 col-12">
-                    {{ $game->game->team1->name }}
-                </div>
-                <div class="col-md-1 col-12">
-                    <b>
-                    {{ $game->team1_vote }} : {{ $game->team2_vote }}
-                    </b>
-                    <i>
-                    ({{ $game->game->team1_score }} : {{ $game->game->team2_score }})
-                    </i>
-                </div>
-                <div class="col-md-2 text-md-end col-12">
-                    {{ $game->game->team2->name }}
-                </div>
-                <div class="col-md-2 col-12">
-                    <b class="d-md-none">Punkte: </b>{{ $game->points }}
-                </div>
-            </div>
+                <a class="link-body-emphasis link-underline link-underline-opacity-0" href="/match/{{ $game->id }}"}}>
+                    <div class="row mb-3 mb-md-0 text-md-start text-center">
+                        <div class="col-md-2 col-12">
+                            {{ $game->game->team1->name }}
+                        </div>
+                        <div class="col-md-1 col-12">
+                            <b>
+                                {{ $game->team1_vote }} : {{ $game->team2_vote }}
+                            </b>
+                            <i>
+                                ({{ $game->game->team1_score }} : {{ $game->game->team2_score }})
+                            </i>
+                        </div>
+                        <div class="col-md-2 text-md-end col-12">
+                            {{ $game->game->team2->name }}
+                        </div>
+                        <div class="col-md-2 col-12">
+                            <b class="d-md-none">Punkte: </b>{{ $game->points }}
+                        </div>
+                    </div>
+                </a>
+
             <hr>
             @endforeach
         </div>

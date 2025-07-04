@@ -21,7 +21,7 @@ class ProfileController extends Controller
                 ->whereHas('game', function ($q) {
                     $q->where('is_finished', true);
                 })
-                ->get(),
+                ->get()->reverse(),
         ]);
     }
 }
