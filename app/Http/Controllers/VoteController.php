@@ -46,7 +46,7 @@ class VoteController extends Controller
     {
         $votes = $request->input('votes');
         foreach ($votes as $vote) {
-            if (!isset($vote['team1_score'], $vote['team2_score'])) {
+            if (! isset($vote['team1_score'], $vote['team2_score'])) {
                 continue; // Felder fehlen, z.B. weil das Spiel schon gestartet ist
             }
             $gameId = $vote['game_id'];
