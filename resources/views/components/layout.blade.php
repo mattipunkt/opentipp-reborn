@@ -35,7 +35,7 @@
 </head>
 <body>
     <nav
-        class="navbar navbar-expand-md align-items-center"
+        class="navbar navbar-expand-md align-items-center border-bottom border-body"
     >
         <div class="container">
             <a class="navbar-brand" href="/"><img src="/logo.svg" alt="openTipp" height="24"/></a>

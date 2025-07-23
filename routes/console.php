@@ -9,6 +9,7 @@ use Illuminate\Foundation\Console\ClosureCommand;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
+use \App\Providers\CountryProvider;
 
 function refreshGameData()
 {
@@ -43,6 +44,10 @@ function refreshGameData()
                 'is_started' => true,
             ]);
         }
+    }
+    foreach(Team::all() as $team) {
+        $team->icon_url = CountryProvider::mapStringToCountryEmoji($team->name);
+        echo $team->name.' '.$team->icon_url.'\n';
     }
     $file = fopen('/tmp/opentipp_last_update', 'w');
     echo fwrite($file,time());
