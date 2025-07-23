@@ -41,13 +41,31 @@
         <div class="col-12 col-md-2">
             <span class="d-block text-truncate"><b>{{ $vote->game->time->format('d.m.Y, H:i') }}</b></span>
         </div>
+        <!-- Mobile View -->
+            <div class="col-5 d-md-none mt-1 mb-1 text-end">
+                <span>{{ $vote->game->team1->name }}</span>
+            </div>
+            <div class="col-1 d-md-none text-center">
+                <span>{{ $vote->game->team1->icon_url }}</span>
+            </div>
+            <div class="col-1 d-md-none text-center">
+                <span>{{ $vote->game->team2->icon_url }}</span>
+            </div>
+            <div class="col-5 d-md-none text-start">
+                <span>{{ $vote->game->team2->name }}</span>
+            </div>
+
+        <!-- End Mobile View -->
+
         <!-- Team 1 Name -->
-        <div class="col-12 col-md-2 mb-1 mb-md-0">
+        <div class="d-md-block d-none col-md-2 mb-1 mb-md-0">
             <span class="d-block text-truncate">{{ $vote->game->team1->name }}</span>
         </div>
-
+        <div class="d-md-block d-none col-1">
+            <span>{{ $vote->game->team1->icon_url }}</span>
+        </div>
         <!-- Punkt-Eingabe -->
-        <div class="col-12 col-md-1 mb-1 mb-md-0">
+        <div class="col-12 col-md-2 mb-1 mb-md-0">
             <div class="d-flex justify-content-center justify-content-md-start align-items-center gap-2">
                 <input type="hidden" name="votes[{{ $vote->game->id }}][game_id]" value="{{ $vote->game->id }}">
                 <input tabindex="{{ $tabIndex++ }}" type="number" class="form-control text-center px-1" pattern="[0-9]*" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team1_score]" value="{{ $vote->team1_vote }}" @if($vote->game->time->isPast()) disabled @endif>
@@ -57,8 +75,11 @@
         </div>
 
         <!-- Team 2 Name -->
-        <div class="col-12 col-md-2 text-md-end">
-            <span class="d-block text-truncate">{{ $vote->game->team2->name }}</span>
+        <div class="d-md-block d-none col-1">
+            <span>{{ $vote->game->team2->icon_url }}</span>
+        </div>
+        <div class="d-md-block d-none col-12 col-md-1 text-md-end">
+            <span class="d-block text-truncate"> {{ $vote->game->team2->name }}</span>
         </div>
         @if($vote->game->is_finished)
             <div class="col-12 col-md-2 text-md-center">
