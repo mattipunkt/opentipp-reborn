@@ -47,7 +47,7 @@ function refreshGameData()
     }
     foreach (Team::all() as $team) {
         $team->icon_url = CountryProvider::mapStringToCountryEmoji($team->name);
-        echo $team->name.' '.$team->icon_url.'\n';
+        $team->save();
     }
     $file = fopen('/tmp/opentipp_last_update', 'w');
     echo fwrite($file, time());

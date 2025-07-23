@@ -10,19 +10,15 @@ class CountryProvider
         $shortest = -1;
         $closest = null;
         foreach ($countries as $country) {
-            $lev = levenshtein($country['name'], $countryName);
-            echo $country['name'].' '.$lev.'\n<br>';
-            if ($lev == 0) {
+            if ($country['name'] == $countryName) {
                 $closest = $country;
-                $shortest = 0;
                 break;
-            }
-            if ($lev <= $shortest || $shortest < 0) {
-                $closest = $country;
-                $shortest = $lev;
             }
         }
 
+        if($closest === null) {
+           return mb_convert_encoding('&#127988;', 'UTF-8', 'HTML-ENTITIES');
+        }
         $countryCode = strtoupper($closest['alpha2']);
         $emoji = '';
 
