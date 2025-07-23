@@ -5,6 +5,7 @@ use App\Models\GameType;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Vote;
+use App\Providers\CountryProvider;
 use Illuminate\Foundation\Console\ClosureCommand;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -44,8 +45,12 @@ function refreshGameData()
             ]);
         }
     }
+    foreach (Team::all() as $team) {
+        $team->icon_url = CountryProvider::mapStringToCountryEmoji($team->name);
+        echo $team->name.' '.$team->icon_url.'\n';
+    }
     $file = fopen('/tmp/opentipp_last_update', 'w');
-    echo fwrite($file,time());
+    echo fwrite($file, time());
     fclose($file);
 }
 
@@ -81,9 +86,10 @@ function calcPoints(): void
         if ($vote->game->is_finished) {
             $points = 0;
             $game = $vote->game;
-            if (!isset($vote->team1_vote) || !isset($vote->team2_vote)) {
+            if (! isset($vote->team1_vote) || ! isset($vote->team2_vote)) {
                 $vote->points = $points;
                 $vote->save();
+
                 continue;
             } else {
                 if ($game->team1_score == $game->team2_score) {

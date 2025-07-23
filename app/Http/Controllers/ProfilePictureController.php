@@ -17,8 +17,9 @@ class ProfilePictureController extends Controller
         $request->validate([
             'profile_picture' => 'required|mimes:jpeg,jpg,png',
         ]);
-        if (!$request->hasFile('profile_picture') || !$request->file('profile_picture')->isValid()) {
+        if (! $request->hasFile('profile_picture') || ! $request->file('profile_picture')->isValid()) {
             session()->flash('status', '❌ Fehler beim Hochladen des Bildes.');
+
             return redirect()->back();
         }
         $image = $request->file('profile_picture');
