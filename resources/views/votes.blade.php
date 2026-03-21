@@ -8,6 +8,12 @@
     <p class="mb-2">
         Hier kannst du deine Tipps abgeben. Vergiss nicht, vor Spielbeginn zu tippen und deine Tipps zu speichern!
     </p>
+    @if(session('success'))
+        <div class="alert alert-success text-base-100 shadow text-shadow my-2">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="card card-border shadow bg-base-200">
     <div class="card-body">
         <ul class="md:grid hidden grid-cols-6 gap-2">
