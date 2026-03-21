@@ -94,7 +94,7 @@
                     @endauth
                     <div>
                         <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge text-bg-dark"><i
-                                class="bi bi-github"> </i> openTipp v1.0.6</a>
+                                class="bi bi-github"> </i> openTipp v2.0.0</a>
                     </div>
                 </div>
             </div>
@@ -147,7 +147,7 @@
                     @endauth
                     <div>
                         <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge text-bg-dark"><i
-                                class="bi bi-github"> </i> openTipp v1.0.6</a>
+                                class="bi bi-github"> </i> openTipp v2.0.0</a>
                     </div>
                 </div>
 
