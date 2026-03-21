@@ -27,6 +27,8 @@ Route::get('/', function () {
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('show.register');
 Route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
+Route::get('/password-reset', [AuthController::class, 'showPasswordReset'])->name('show.password.reset');
+
 
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -50,8 +52,8 @@ Route::get('/ranks', function () {
 Route::get('/user/{username}', [ProfileController::class, 'showProfile'])->name('show.profile');
 
 // Profilbild
-Route::get('/profilepicture', [ProfilePictureController::class, 'viewProfilePictureChanger'])->name('show.profilepicture');
+Route::get('/profilesettings', [ProfilePictureController::class, 'viewProfilePictureChanger'])->name('show.profilepicture');
 Route::post('/profilepicture', [ProfilePictureController::class, 'saveProfilePicture'])->name('save.profilepicture');
-
+Route::post('/profilesettings', [ProfileController::class, 'saveProfileSettings'])->name('save.profilesettings');
 // Games
 Route::get('/match/{id}', [\App\Http\Controllers\GameController::class, 'showMatch'])->name('show.match');

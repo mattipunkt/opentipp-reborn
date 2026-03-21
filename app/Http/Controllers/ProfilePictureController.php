@@ -30,7 +30,7 @@ class ProfilePictureController extends Controller
         $user->save();
         session()->flash('status', '🎉 Profilbild erfolgreich geändert!');
 
-        return redirect('/');
+        return redirect()->back()->with('status', 'Profilbild erfolgreich gespeichert.');
     }
 
     public function viewProfilePictureChanger()

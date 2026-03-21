@@ -27,6 +27,9 @@ class User extends Authenticatable
         'points',
         'first_name',
         'profile_picture',
+        'location',
+        'rank',
+        'slogan'
     ];
 
     /**

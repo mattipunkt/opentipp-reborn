@@ -59,9 +59,9 @@
                         @admin
 
                         <div>
-                            <div href="/admin/users">
+                            <a href="/admin/users">
                                 <span class="badge text-bg-info">Admin-Bereich</span>
-                            </div>
+                            </a>
                         </div>
                         <div>
                             <a href="/admin/users">
@@ -86,7 +86,7 @@
                             <i class="bi bi-person-fill"> </i>
                             <i>Hallo, {{ Auth::user()->name }}!</i>
                         </a>
-                        <a href="/profilepicture"><i class="bi bi-vignette"> </i> Profilbild ändern</a>
+                        <a href="/profilesettings"><i class="bi bi-pencil"> </i> Profil bearbeiten</a>
                         <form action="/logout" method="post">
                             @csrf
                             <button class="dropdown-item"><i class="bi bi-door-closed"> </i> Logout</button>
@@ -139,7 +139,7 @@
                             <i class="bi bi-person-fill"> </i>
                             <i>Hallo, {{ Auth::user()->name }}!</i>
                         </a>
-                        <a href="/profilepicture"><i class="bi bi-vignette"> </i> Profilbild ändern</a>
+                        <a href="/profilesettings"><i class="bi bi-pencil"> </i> Profilbild ändern</a>
                         <form action="/logout" method="post">
                             @csrf
                             <button class="dropdown-item"><i class="bi bi-door-closed"> </i> Logout</button>

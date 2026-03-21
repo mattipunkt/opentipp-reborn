@@ -24,4 +24,18 @@ class ProfileController extends Controller
                 ->get()->reverse(),
         ]);
     }
+
+    public function saveProfileSettings(Request $request)
+    {
+        $validated = $request->validate([
+            'location' => 'max:255',
+            'slogan' => 'max:255',
+        ]);
+
+        $user = $request->user();
+        $user->location = $validated['location'];
+        $user->slogan = $validated['slogan'];
+        $user->save();
+        return redirect()->back()->with('status', 'Einstellungen erfolgreich gespeichert.');
+    }
 }

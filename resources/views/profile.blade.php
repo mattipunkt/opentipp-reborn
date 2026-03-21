@@ -3,13 +3,16 @@
         <div class="card-body">
             <div class="flex flex-col md:flex-row gap-4 md:items-center">
                 <div class="flex justify-center">
-                    <img src="data:image/jpg;base64,{{ $user->profile_picture }}" class="rounded-full border-2 shadow-lg align-middle md:w-50 w-50" alt="Profilbild">
+                    <img src="data:image/jpg;base64,{{ $user->profile_picture }}" class="rounded-full  shadow-lg align-middle md:w-50 w-50" alt="Profilbild">
                 </div>
-                <div class="">
-                    <h2 class="font-bold text-xl">{{ $user->name }}</h2>
-                    <p>
-                        <i>{{ $user->first_name }}</i><br>
-                        Punkte: <b>{{ $user->points }}</b>
+                <div class="items-center">
+                    <h2 class="font-bold text-2xl ">@ {{ $user->name }}</h2>
+                    <p class="text-lg">
+                        <i><i class="bi bi-person-fill mr-1"></i>{{ $user->first_name }}</i><br>
+                        <i class="bi bi-geo-alt mr-1"></i>{{ $user->location }}<br>
+                        <i class="bi bi-pencil-fill mr-1"></i>{{ $user->slogan }}<br>
+
+                        <i class="bi bi-list-ol mr-1"></i><b>Punkte:</b> {{ $user->points }}
 
                     </p>
                 </div>
