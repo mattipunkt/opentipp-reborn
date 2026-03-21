@@ -23,7 +23,7 @@ RUN apk add --no-cache \
     && docker-php-ext-enable gd
 
 # install composer
-COPY --from=composer:2.7.6 /usr/bin/composer /usr/bin/composer
+COPY --from=composer/composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
@@ -44,7 +44,7 @@ RUN chown -R www-data:www-data /var/www/html/vendor \
     && chmod -R 775 /var/www/html/vendor
 
 # stage 2: production stage
-FROM php:8.3-fpm-alpine
+FROM php:8.4-fpm-alpine
 
 # install nginx
 RUN apk add --no-cache \
