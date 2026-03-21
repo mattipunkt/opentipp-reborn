@@ -44,7 +44,7 @@ RUN chown -R www-data:www-data /var/www/html/vendor \
     && chmod -R 775 /var/www/html/vendor
 
 # stage 2: production stage
-FROM php:fpm-alpine
+FROM php:8.4-fpm-alpine
 
 # install nginx
 RUN apk add --no-cache \
