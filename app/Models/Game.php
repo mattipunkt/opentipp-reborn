@@ -42,6 +42,12 @@ class Game extends Model
         return $this->hasOne(GameType::class, 'id', 'game_type');
     }
 
+    public function vote($user_id, $game_id): bool
+    {
+        return Vote::where('user_id', $user_id)->where('game_id', $game_id)->first()->team1_vote !== null;
+
+    }
+
     public static function getNextGames()
     {
         return Game::where('is_started', false)

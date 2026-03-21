@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Schedule;
 
 function refreshGameData()
 {
-    $url = 'https://api.openligadb.de/getmatchdata/Fef/2025';
+    $url = 'https://api.openligadb.de/getmatchdata/bl1/2025';
     $obj = json_decode(file_get_contents($url), true);
     foreach ($obj as $match) {
+        echo 'running.';
         $game = Game::firstOrCreate(
             [
                 'openligadb_id' => $match['matchID'],
@@ -136,7 +137,7 @@ function calcPoints(): void
     }
 }
 
-Schedule::call(function () {
+function create_votes_for_all_users(): void {
     $users = User::all();
     foreach ($users as $user) {
         $games = Game::all();
@@ -147,6 +148,10 @@ Schedule::call(function () {
             ]);
         }
     }
+}
+
+Schedule::call(function () {
+    create_votes_for_all_users();
 })->hourly();
 
 Schedule::call(function () {
@@ -155,4 +160,8 @@ Schedule::call(function () {
 
 Artisan::command('calc:votes', function () {
     calcPoints();
+});
+
+Artisan::command('create:votes', function () {
+    create_votes_for_all_users();
 });

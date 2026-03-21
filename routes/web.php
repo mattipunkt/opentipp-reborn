@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('home', [
         'nextGames' => Game::getNextGames(),
         'lastGames' => Game::getLastGames(),
-        'users' => User::orderBy('points', 'desc')->get(),
+        'users' => User::orderBy('points', 'desc')->take(5)->get(),
     ]);
 });
 

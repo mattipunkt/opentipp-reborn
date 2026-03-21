@@ -2,99 +2,89 @@
     @php
         $tabIndex = 1;
     @endphp
-    <h1>
+    <h1 class="text-4xl font-bold mb-2">
         Tippen!
     </h1>
-    <p>
+    <p class="mb-2">
         Hier kannst du deine Tipps abgeben. Vergiss nicht, vor Spielbeginn zu tippen und deine Tipps zu speichern!
     </p>
-    <ul class="nav nav-underline nav-underline-info d-md-inline-flex d-none mb-3">
-        @foreach($gametypes as $gt)
-        <li class="nav-item">
-          <a class="nav-link @if($gt->id == $gtid) active @endif" aria-current="page" href="vote?gt={{ $gt->id }}">{{ $gt->name }}</a>
-        </li>
-        @endforeach
-    </ul>
+    <div class="card card-border shadow bg-base-200">
+    <div class="card-body">
+        <ul class="md:grid hidden grid-cols-6 gap-2">
+            @foreach($gametypes as $gt)
+                <li class="">
+                    <a class="w-full btn @if($gt->id == $gtid) font-bold btn-neutral @else  @endif " aria-current="page" href="vote?gt={{ $gt->id }}" >{{ $gt->name }}</a>
+                </li>
+            @endforeach
+        </ul>
 
-    <div class="dropdown d-md-none">
+    <details class="dropdown md:hidden">
 
-        <a class="btn btn-outline-info mx-auto dropdown-toggle w-100" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <summary class="btn w-full bg-base-100">
         @foreach($gametypes as $gt)
             @if($gt->id == $gtid) {{ $gt->name }} @endif
         @endforeach
-        </a>
+        </summary>
 
-        <ul class="dropdown-menu w-100">
+        <ul class="menu menu-horizontal dropdown-content z-10 w-full h-40 overflow-scroll bg-base-100 rounded-box mt-2 p-2 shadow">
         @foreach($gametypes as $gt)
-            <li><a class="dropdown-item" href="vote?gt={{ $gt->id }}">{{ $gt->name }}</a></li>
+            <li class="w-full @if($gt->id == $gtid) font-bold @endif"><a href="vote?gt={{ $gt->id }}">{{ $gt->name }}</a></li>
         @endforeach
         </ul>
+    </details>
+
+        <div class="mt-8">
+            <form method="post" action="/vote?gt={{ $gtid }}">
+                @csrf
+                @foreach($votes as $vote)
+                    <div class="grid md:grid-cols-12 grid-cols-11 mb-4 mb-md-2 align-center items-center text-center">
+                        <div class="md:col-span-2 col-span-12 md:text-left text-center">
+                            <span class="break-words min-w-0 block"><b>{{ $vote->game->time->format('d.m.Y, H:i') }}</b></span>
+                        </div>
+
+                        <!-- Team 1 Name -->
+                        <div class="md:col-span-3 min-w-0  col-span-3 md:text-center text-left">
+                            <span class="break-words min-w-0 block">{{ $vote->game->team1->name }}</span>
+                        </div>
+                        <div class="md:col-span-1 hidden md:block ">
+                            <span >{{ $vote->game->team1->icon_url }}</span>
+                        </div>
+                        <!-- Punkt-Eingabe -->
+                        <div class="md:col-span-2 col-span-5 w-full">
+                            <div class="flex justify-center align-center items-center gap-1">
+                                <input type="hidden" name="votes[{{ $vote->game->id }}][game_id]" value="{{ $vote->game->id }}">
+                                <input tabindex="{{ $tabIndex++ }}" type="number" class="bg-base-100 rounded shadow px-1 disabled:opacity-50" pattern="[0-9]*" maxlength="2" style="width:50px" name="votes[{{ $vote->game->id }}][team1_score]" value="{{ $vote->team1_vote }}" @if($vote->game->time->isPast()) disabled @endif>
+                                <span>:</span>
+                                <input tabindex="{{ $tabIndex++ }}" type="number" class="bg-base-100 rounded shadow px-1 disabled:opacity-50" pattern="[0-9]*" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team2_score]" value="{{ $vote->team2_vote }}" @if($vote->game->time->isPast()) disabled @endif>
+                            </div>
+                        </div>
+
+                        <!-- Team 2 Name -->
+                        <div class="md:col-span-1 md:block hidden ">
+                            <span>{{ $vote->game->team2->icon_url }}</span>
+                        </div>
+                        <div class="md:col-span-3 w-full min-w-0 col-span-3 md:text-center text-right break-words">
+                            <span class="break-words min-w-0 block"> {{ $vote->game->team2->name }}</span>
+                        </div>
+                        @if($vote->game->is_finished)
+                            <div class="col-span-12">
+                                <i>({{ $vote->game->team1_score }} : {{ $vote->game->team2_score }})</i>
+                            </div>
+                        @endif
+
+
+
+                    </div>
+                @endforeach
+                <div class="text-center text-md-start mb-3">
+                    <button type="submit" class="btn btn-neutral w-full">
+                        Speichern
+                    </button>
+                </div>
+            </form>
+    </div>
+        </div>
     </div>
 
 
-
-    <br>
-    <form method="post" action="/vote?gt={{ $gtid }}">
-    @csrf
-    @foreach($votes as $vote)
-    <div class="row mb-4 mb-md-2 align-items-center text-center text-md-start">
-        <div class="col-12 col-md-2">
-            <span class="d-block text-truncate"><b>{{ $vote->game->time->format('d.m.Y, H:i') }}</b></span>
-        </div>
-        <!-- Mobile View -->
-            <div class="col-5 d-md-none mt-1 mb-1 text-end">
-                <span>{{ $vote->game->team1->name }}</span>
-            </div>
-            <div class="col-1 d-md-none text-center">
-                <span>{{ $vote->game->team1->icon_url }}</span>
-            </div>
-            <div class="col-1 d-md-none text-center">
-                <span>{{ $vote->game->team2->icon_url }}</span>
-            </div>
-            <div class="col-5 d-md-none text-start">
-                <span>{{ $vote->game->team2->name }}</span>
-            </div>
-
-        <!-- End Mobile View -->
-
-        <!-- Team 1 Name -->
-        <div class="d-md-block d-none col-md-2 mb-1 mb-md-0">
-            <span class="d-block text-truncate">{{ $vote->game->team1->name }}</span>
-        </div>
-        <div class="d-md-block d-none col-1">
-            <span>{{ $vote->game->team1->icon_url }}</span>
-        </div>
-        <!-- Punkt-Eingabe -->
-        <div class="col-12 col-md-2 mb-1 mb-md-0">
-            <div class="d-flex justify-content-center justify-content-md-start align-items-center gap-2">
-                <input type="hidden" name="votes[{{ $vote->game->id }}][game_id]" value="{{ $vote->game->id }}">
-                <input tabindex="{{ $tabIndex++ }}" type="number" class="form-control text-center px-1" pattern="[0-9]*" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team1_score]" value="{{ $vote->team1_vote }}" @if($vote->game->time->isPast()) disabled @endif>
-                <span>:</span>
-                <input tabindex="{{ $tabIndex++ }}" type="number" class="form-control text-center px-1" pattern="[0-9]*" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team2_score]" value="{{ $vote->team2_vote }}" @if($vote->game->time->isPast()) disabled @endif>
-            </div>
-        </div>
-
-        <!-- Team 2 Name -->
-        <div class="d-md-block d-none col-1">
-            <span>{{ $vote->game->team2->icon_url }}</span>
-        </div>
-        <div class="d-md-block d-none col-12 col-md-1 text-md-end">
-            <span class="d-block text-truncate"> {{ $vote->game->team2->name }}</span>
-        </div>
-        @if($vote->game->is_finished)
-            <div class="col-12 col-md-2 text-md-center">
-                <i>({{ $vote->game->team1_score }} : {{ $vote->game->team2_score }})</i>
-            </div>
-        @endif
-
-
-
-    </div>
-    @endforeach
-    <div class="text-center text-md-start mb-3">
-        <button type="submit" class="btn btn-info w-auto">
-            Speichern
-        </button>
-    </div>
-    </form>
 </x-layout>

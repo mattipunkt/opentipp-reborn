@@ -12,7 +12,7 @@ class GameController extends Controller
     {
         return view('game', [
             'game' => Game::where('id', $id)->first(),
-            'votes' => Vote::where('game_id', $id)->get(),
+            'votes' => Vote::where('game_id', $id)->orderBy('points', 'desc')->get(),
         ]);
     }
 }
