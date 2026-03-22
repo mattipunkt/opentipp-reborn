@@ -5,7 +5,7 @@
             <div class="grid justify-center gap-2">
                 <span class="text-center text-lg">{{ $game->time->format('d.m.Y,  H:i') }} Uhr</span>
                 <div class="grid grid-cols-5 text-3xl font-bold">
-                    <div class="col-span-2 text-right">
+                    <div class="col-span-2 text-right break-words">
                         {{ $game->team1->name }}
                     </div>
                     <div class="col-span-1 text-center font-light">
@@ -15,7 +15,7 @@
                             :
                         @endif
                     </div>
-                    <div class="col-span-2 text-left">
+                    <div class="col-span-2 text-left break-words">
                         {{ $game->team2->name }}
                     </div>
                 </div>
