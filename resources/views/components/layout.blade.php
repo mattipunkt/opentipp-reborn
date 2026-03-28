@@ -42,7 +42,8 @@
         >
             <div class="container mx-auto md:flex hidden items-center justify-between">
                 <div class="items-center gap-3 md:flex hidden">
-                    <a class="navbar-brand" href="/"><img class="w-30" src="/logo.svg" alt="openTipp" height="24"/></a>
+                    <a class="navbar-brand" href="/">
+                        <img class="w-30 dark:invert" src="/logo.svg" alt="openTipp" height="24"/></a>
                     <div class="flex gap-2">
                         <div>
                             <a href="/vote" aria-current="page"
@@ -94,7 +95,7 @@
                     @endauth
                     <div>
                         <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge text-bg-dark"><i
-                                class="bi bi-github"> </i> openTipp v2.0.1</a>
+                                class="bi bi-github"> </i> openTipp v2.0.2</a>
                     </div>
                 </div>
             </div>
@@ -147,7 +148,7 @@
                     @endauth
                     <div>
                         <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge text-bg-dark"><i
-                                class="bi bi-github"> </i> openTipp v2.0.1</a>
+                                class="bi bi-github"> </i> openTipp v2.0.2</a>
                     </div>
                 </div>
 
