@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schedule;
 
 function refreshGameData()
 {
-    $url = 'https://api.openligadb.de/getmatchdata/bl1/2025';
+    $url = 'https://api.openligadb.de/getmatchdata/wm26/2026';
     $obj = json_decode(file_get_contents($url), true);
     foreach ($obj as $match) {
         echo 'running.';

@@ -7,7 +7,7 @@
 
 > Be aware, that the whole interface is currently only available in german. Pull Requests are very welcome to fix that :)
 
-**Current Default Match**: UEFA Women's Champion Ship 2025
+**Current Default Match**: FIFA World Cup 2026
 
 ## Installation (using Docker)
 ### using Docker Compose
