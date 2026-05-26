@@ -11,10 +11,13 @@ on:
         default: 'latest'
 
 jobs:
-  build-and-push-arm64:
+  # ---------------------------------------------------
+  # 1. Job: Native ARM64
+  # ---------------------------------------------------
+  build-arm64:
     runs-on: ubuntu-24.04-arm
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Log in to GitHub Container Registry
@@ -23,33 +26,28 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
-      
-      - name: Set image tag
-        id: set_tag
-        run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "TAG=${{ github.event.inputs.version }}" >> $GITHUB_ENV
-          else
-            echo "TAG=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
-          fi
 
-      - name: Build and push image
+      - name: Build and push ARM64
         uses: docker/build-push-action@v5
         with:
           file: ./deploy/Dockerfile
+          platforms: linux/arm64
           push: true
           provenance: false
-          tags: |
-            ghcr.io/mattipunkt/opentipp-reborn:${{ env.TAG }}
-            ghcr.io/mattipunkt/opentipp-reborn:latest
+          # Wir nutzen den Commit-Hash als temporären Tag
+          tags: ghcr.io/mattipunkt/opentipp-reborn:${{ github.sha }}-arm64
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.description=opentipp container image
             org.opencontainers.image.licenses=MIT
-  build-and-push-amd64:
+
+  # ---------------------------------------------------
+  # 2. Job: Native AMD64 (x86)
+  # ---------------------------------------------------
+  build-amd64:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Log in to GitHub Container Registry
@@ -58,26 +56,50 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build and push AMD64
+        uses: docker/build-push-action@v5
+        with:
+          file: ./deploy/Dockerfile
+          platforms: linux/amd64
+          push: true
+          provenance: false
+          # Wir nutzen den Commit-Hash als temporären Tag
+          tags: ghcr.io/mattipunkt/opentipp-reborn:${{ github.sha }}-amd64
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.description=opentipp container image
+            org.opencontainers.image.licenses=MIT
+
+  # ---------------------------------------------------
+  # 3. Job: Das Manifest erstellen (Der "Kleber")
+  # ---------------------------------------------------
+  create-manifest:
+    runs-on: ubuntu-latest
+    needs: [build-amd64, build-arm64] # Wartet zwingend auf beide Build-Jobs
+    steps:
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
       
-      - name: Set image tag
+      - name: Set target image tag
         id: set_tag
         run: |
+          # Ermittelt, welcher Tag am Ende verwendet werden soll (Release oder manueller Input)
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "TAG=${{ github.event.inputs.version }}" >> $GITHUB_ENV
           else
             echo "TAG=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
           fi
 
-      - name: Build and push image
-        uses: docker/build-push-action@v5
-        with:
-          file: ./deploy/Dockerfile
-          push: true
-          provenance: false
-          tags: |
-            ghcr.io/mattipunkt/opentipp-reborn:${{ env.TAG }}
-            ghcr.io/mattipunkt/opentipp-reborn:latest
-          labels: |
-            org.opencontainers.image.source=https://github.com/${{ github.repository }}
-            org.opencontainers.image.description=opentipp container image
-            org.opencontainers.image.licenses=MIT
+      - name: Create and push manifest
+        run: |
+          # Führt die beiden temporären Architektur-Images unter den finalen Tags zusammen
+          docker buildx imagetools create \
+            -t ghcr.io/mattipunkt/opentipp-reborn:${{ env.TAG }} \
+            -t ghcr.io/mattipunkt/opentipp-reborn:latest \
+            ghcr.io/mattipunkt/opentipp-reborn:${{ github.sha }}-amd64 \
+            ghcr.io/mattipunkt/opentipp-reborn:${{ github.sha }}-arm64
