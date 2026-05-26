@@ -101,13 +101,13 @@
             </div>
             <div class="md:hidden">
                 <div class="md:hidden flex justify-between items-center">
-                    <a class="navbar-brand" href="/"><img class="w-30" src="/logo.svg" alt="openTipp" height="24"/></a>
+                    <a class="navbar-brand" href="/"><img class="w-30 dark:invert" src="/logo.svg" alt="openTipp" height="24"/></a>
                     <i class="bi bi-list cursor-pointer" id="mobile-nav-button"></i>
                 </div>
-                <div id="mobile-nav-list" class="grid gap-1.5 mt-2 mx-2 md:hidden hidden">
+                <div id="mobile-nav-list" class="grid gap-2 mt-2 mx-2 md:hidden">
                         <div>
                             <a href="/vote" aria-current="page"
-                            ><i class="bi bi-123"> </i> Tippen
+                            ><i class="bi bi-123"> </i> Tippen</a>
                         </div>
                         <div>
                             <a href="/ranks"><i class="bi bi-table"> </i> Punktetabelle</a>
