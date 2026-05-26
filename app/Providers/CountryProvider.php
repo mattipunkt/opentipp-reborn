@@ -10,7 +10,7 @@ class CountryProvider
         $shortest = -1;
         $closest = null;
         foreach ($countries as $country) {
-            if ($country['name'] == $countryName) {
+            if (str_contains(strtolower($country['name']), strtolower($countryName))) {
                 $closest = $country;
                 break;
             }
