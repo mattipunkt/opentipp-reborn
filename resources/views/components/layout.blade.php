@@ -40,8 +40,8 @@
         <nav
             class="p-2 my-2 rounded shadow bg-base-200 mb-4 items-center align-baseline"
         >
-            <div class="container mx-auto md:flex hidden items-center justify-between">
-                <div class="items-center gap-3 md:flex hidden">
+            <div class="container mx-auto lg:flex hidden items-center justify-between">
+                <div class="items-center gap-3 lg:flex hidden">
                     <a class="navbar-brand" href="/">
                         <img class="w-30 dark:invert" src="/logo.svg" alt="openTipp" height="24"/></a>
                     <div class="flex gap-2">
@@ -95,7 +95,7 @@
                     @endauth
                     <div>
                         <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge badge-accent"><i
-                                class="bi bi-github"> </i> openTipp v2.0.2</a>
+                                class="bi bi-github"> </i> openTipp v2.2.0</a>
                     </div>
                         @if(config('mail.error_report'))
                     <div>
@@ -106,12 +106,12 @@
                             @endif
                 </div>
             </div>
-            <div class="md:hidden">
-                <div class="md:hidden flex justify-between items-center">
+            <div class="lg:hidden">
+                <div class="lg:hidden flex justify-between items-center">
                     <a class="navbar-brand" href="/"><img class="w-30 dark:invert" src="/logo.svg" alt="openTipp" height="24"/></a>
                     <i class="bi bi-list cursor-pointer" id="mobile-nav-button"></i>
                 </div>
-                <div id="mobile-nav-list" class="grid gap-2 mt-2 mx-2 md:hidden">
+                <div id="mobile-nav-list" class="grid gap-2 mt-2 mx-2 lg:hidden hidden transition-all duration-300">
                         <div>
                             <a href="/vote" aria-current="page"
                             ><i class="bi bi-123"> </i> Tippen</a>
@@ -153,10 +153,21 @@
                             <button class="dropdown-item"><i class="bi bi-door-closed"> </i> Logout</button>
                         </form>
                     @endauth
-                    <div>
-                        <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge text-bg-dark"><i
-                                class="bi bi-github"> </i> openTipp v2.0.2</a>
+                    <div class="flex gap-2 ">
+                        <div>
+                            <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge badge-accent"><i
+                                    class="bi bi-github"> </i> openTipp v2.2.0</a>
+                        </div>
+                        @if(config('mail.error_report'))
+                            <div>
+                                <a class="badge badge-warning" href="mailto:{{ config('mail.error_report') }}">
+                                    <i class="bi bi-exclamation-diamond"> </i> Fehler melden
+                                </a>
+                            </div>
+                        @endif
                     </div>
+
+
                 </div>
 
             </div>
