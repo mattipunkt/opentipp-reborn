@@ -13,6 +13,7 @@ echo "MAIL_USERNAME=$MAIL_USERNAME" >> .env
 echo "MAIL_PASSWORD=$MAIL_PASSWORD" >> .env
 echo "MAIL_FROM_ADDRESS=$MAIL_FROM_ADDRESS" >> .env
 echo "TZ=$TZ" >> .env
+echo "ERROR_REPORT_MAIL=$ERROR_REPORT_MAIL" >> .env
 
 php artisan key:generate
 php artisan optimize:clear

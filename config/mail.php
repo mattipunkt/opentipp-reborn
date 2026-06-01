@@ -113,4 +113,6 @@ return [
         'name' => env('MAIL_FROM_NAME', 'openTipp'),
     ],
 
+    'error_report' => env('ERROR_REPORT_MAIL', ''),
+
 ];

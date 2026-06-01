@@ -47,7 +47,7 @@
                     <div class="flex gap-2">
                         <div>
                             <a href="/vote" aria-current="page"
-                            ><i class="bi bi-123"> </i> Tippen
+                            ><i class="bi bi-123"> </i> Tippen</a>
                         </div>
                         <!--
                         <li class="nav-item">
@@ -94,9 +94,16 @@
                         </form>
                     @endauth
                     <div>
-                        <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge text-bg-dark"><i
+                        <a href="https://github.com/mattipunkt/openTipp-reborn" class="badge badge-accent"><i
                                 class="bi bi-github"> </i> openTipp v2.0.2</a>
                     </div>
+                        @if(config('mail.error_report'))
+                    <div>
+                        <a class="badge badge-warning" href="mailto:{{ config('mail.error_report') }}">
+                            <i class="bi bi-exclamation-diamond"> </i> Fehler melden
+                        </a>
+                    </div>
+                            @endif
                 </div>
             </div>
             <div class="md:hidden">
