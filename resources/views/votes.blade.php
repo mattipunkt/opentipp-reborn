@@ -66,11 +66,11 @@
                         <!-- Punkt-Eingabe -->
                         <div class="md:col-span-2 col-span-5 w-full">
 
-                            <div class="flex justify-center align-center items-center gap-1">
+                            <div class="flex justify-center align-center items-center gap-1 ">
                                 <input type="hidden" name="votes[{{ $vote->game->id }}][game_id]" value="{{ $vote->game->id }}">
-                                <input tabindex="{{ $tabIndex++ }}" type="number" class="bg-base-100 rounded shadow px-1 disabled:opacity-50" pattern="[0-9]*" maxlength="2" style="width:50px" name="votes[{{ $vote->game->id }}][team1_score]" value="{{ $vote->team1_vote }}" @if($vote->game->time->isPast()) disabled @endif>
+                                <input tabindex="{{ $tabIndex++ }}" type="number" class="bg-base-100 rounded shadow px-1 disabled:opacity-50 dark:border border-gray-600 disabled:border-none" pattern="[0-9]*" maxlength="2" style="width:50px" name="votes[{{ $vote->game->id }}][team1_score]" value="{{ $vote->team1_vote }}" @if($vote->game->time->isPast()) disabled @endif>
                                 <span>:</span>
-                                <input tabindex="{{ $tabIndex++ }}" type="number" class="bg-base-100 rounded shadow px-1 disabled:opacity-50" pattern="[0-9]*" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team2_score]" value="{{ $vote->team2_vote }}" @if($vote->game->time->isPast()) disabled @endif>
+                                <input tabindex="{{ $tabIndex++ }}" type="number" class="bg-base-100 rounded shadow px-1 disabled:opacity-50 dark:border border-gray-600 disabled:border-none" pattern="[0-9]*" maxlength="2" style="width: 50px;" name="votes[{{ $vote->game->id }}][team2_score]" value="{{ $vote->team2_vote }}" @if($vote->game->time->isPast()) disabled @endif>
                             </div>
                         </div>
 
