@@ -28,6 +28,8 @@ class ProfileController extends Controller
     public function saveProfileSettings(Request $request)
     {
         $validated = $request->validate([
+            'first_name' => 'string|max:255',
+            'name' => 'string|max:255',
             'location' => 'max:255',
             'slogan' => 'max:255',
         ]);
@@ -35,6 +37,8 @@ class ProfileController extends Controller
         $user = $request->user();
         $user->location = $validated['location'];
         $user->slogan = $validated['slogan'];
+        $user->first_name = $validated['first_name'];
+        $user->name = $validated['name'];
         $user->save();
         return redirect()->back()->with('status', 'Einstellungen erfolgreich gespeichert.');
     }
