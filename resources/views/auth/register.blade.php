@@ -40,7 +40,7 @@
                 class="grow"
                 name="name"
                 id="name"
-                placeholder="Nutzername"
+                placeholder="Nickname"
                 required
             />
         </label>
