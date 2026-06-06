@@ -80,7 +80,7 @@ class VoteController extends Controller
         }
         $allowedToChange = Game::getNextGames()->first()->is_started;
         return view('special_vote', [
-            'teams' => Team::all(),
+            'teams' => Team::all()->sortBy('name'),
             'allowedToChange' => $allowedToChange,
             'user' => auth()->user(),
         ]);

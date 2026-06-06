@@ -9,8 +9,8 @@
                     <h2 class="font-bold text-2xl ">@ {{ $user->name }}</h2>
                     <p class="text-lg">
                         <i><i class="bi bi-person-fill mr-1"></i>{{ $user->first_name }}</i><br>
-                        <i class="bi bi-geo-alt mr-1"></i>{{ $user->location }}<br>
-                        <i class="bi bi-pencil-fill mr-1"></i>{{ $user->slogan }}<br>
+                        @if($user->location)<i class="bi bi-geo-alt mr-1"></i>{{ $user->location }}<br>@endif
+                        @if($user->slogan)<i class="bi bi-pencil-fill mr-1"></i>{{ $user->slogan }}<br>@endif
                         @if($showWinner)
                             <i class="bi bi-trophy mr-1"></i>{{$user->winnerBet->name}} {{ $user->winnerBet->icon_url }}<br>
                         @endif
