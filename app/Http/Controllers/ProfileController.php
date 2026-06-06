@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -16,6 +17,7 @@ class ProfileController extends Controller
         }
 
         return view('profile', [
+            'showWinner' => Game::getNextGames()->first()->is_started,
             'user' => $user,
             'games' => \App\Models\Vote::where('user_id', $user->id)
                 ->whereHas('game', function ($q) {
