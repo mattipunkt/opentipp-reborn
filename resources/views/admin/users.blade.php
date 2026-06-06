@@ -1,6 +1,6 @@
 <x-layout>
     <h1 class="text-4xl font-bold mb-2">
-        Nutzer bearbeiten
+        Admin-Bereich
     </h1>
     <br>
     <h3 class="text-2xl font-medium">Neue Nutzer</h3>
@@ -67,8 +67,18 @@
 
             @endforeach
         </div>
+    <br><br>
+    <h3 class="text-2xl font-medium">
+        Spiel beenden
+    </h3>
+    <p>Wenn das Finale vorrüber ist, kannst du hier die finalen Punkte (inkl. Sondertipp) berechnen und an alle Spieler eine Mail senden</p>
+    <form action="/admin/concludeGame" method="post">
+        @csrf
+        <input type="submit" class="btn btn-primary mt-2" value="Spiel beenden">
+    </form>
         <br><br>
-        <h3>
+
+        <h3 class="text-2xl font-medium">
             Letzte Aktualisierug der openLigaDB-Daten
         </h3>
         <p>

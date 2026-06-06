@@ -15,4 +15,8 @@ class GameController extends Controller
             'votes' => Vote::where('game_id', $id)->orderBy('points', 'desc')->get(),
         ]);
     }
+
+
 }
+
+

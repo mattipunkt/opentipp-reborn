@@ -26,7 +26,7 @@ class AdminController extends Controller
                 Mail::to(User::find($id))->send(new DefaultMail(
                     User::find($id),
                     'Account aktiviert!',
-                    'Dein Account wurde erfolgreich aktiviert. Du kannst dich jetzt in das Tippspiel einloggen!'
+                    'Dein Account wurde erfolgreich aktiviert. Du kannst dich jetzt in das Tippspiel einloggen!\n\nViel Erfolg!\n'.config('app.url')
                 ));
 
                 return redirect('/admin/users');
@@ -66,5 +66,25 @@ class AdminController extends Controller
             'unaccepted_users' => User::where('is_accepted', false)->get(),
             'time_output' => $time_output,
         ]);
+    }
+
+    public function concludeMatch() {
+        VoteController::calcPoints(matchFinished: true);
+        $firstThreeWinners = User::where('points', '>', 0)->orderBy('points', 'desc')->take(3)->get();
+        $outputString = str();
+        $count = 1;
+        foreach ($firstThreeWinners as $winners) {
+            $outputString .= $count.'. '.$winners->name.' ('.$winners->points.' Punkte)\n';
+            $count++;
+        }
+        foreach (User::all() as $user) {
+            Mail::to($user)->send(new DefaultMail(
+                $user,
+                'Spiel beendet!',
+                'Hallo '.$user->name.'!\n\nDas Spiel wurde beendet. Die Rangliste steht fest:\n\n'.$outputString.'\n\nVielen Dank für deine Teilnahme!'
+            ));
+        }
+        return redirect('/admin/users');
+
     }
 }

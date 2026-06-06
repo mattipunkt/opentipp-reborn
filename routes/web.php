@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfilePictureController;
 use App\Http\Controllers\VoteController;
@@ -36,6 +37,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // ADMIN
 Route::get('/admin/users', [AdminController::class, 'viewUsers'])->name('admin.users');
+Route::post('/admin/concludeGame', [AdminController::class, 'concludeMatch'])->name('admin.concludeGame');
+
 
 // Votes
 Route::get('/vote', [VoteController::class, 'viewVotes'])->name('vote');
@@ -56,4 +59,8 @@ Route::get('/profilesettings', [ProfilePictureController::class, 'viewProfilePic
 Route::post('/profilepicture', [ProfilePictureController::class, 'saveProfilePicture'])->name('save.profilepicture');
 Route::post('/profilesettings', [ProfileController::class, 'saveProfileSettings'])->name('save.profilesettings');
 // Games
-Route::get('/match/{id}', [\App\Http\Controllers\GameController::class, 'showMatch'])->name('show.match');
+Route::get('/match/{id}', [GameController::class, 'showMatch'])->name('show.match');
+
+
+Route::get('/special', [VoteController::class, 'viewSpecialVotesSite'])->name('show.special');
+Route::post('/special', [VoteController::class, 'saveSpeicalVote'])->name('store.special');

@@ -57,13 +57,12 @@
                         <div>
                             <a href="/ranks"><i class="bi bi-table"> </i> Punktetabelle</a>
                         </div>
+                        <div>
+                            <a href="/special"><i class="bi bi-star"> </i> Sondertipp</a>
+                        </div>
                         @admin
 
-                        <div>
-                            <a href="/admin/users">
-                                <span class="badge text-bg-info">Admin-Bereich</span>
-                            </a>
-                        </div>
+
                         <div>
                             <a href="/admin/users">
                                 <i class="bi bi-people"> </i>
@@ -119,6 +118,9 @@
                         <div>
                             <a href="/ranks"><i class="bi bi-table"> </i> Punktetabelle</a>
                         </div>
+                        <div>
+                            <a href="/special"><i class="bi bi-star"> </i> Sondertipp</a>
+                        </div>
                         @admin
 
                         <div>
@@ -147,7 +149,7 @@
                             <i class="bi bi-person-fill"> </i>
                             <i>Hallo, {{ Auth::user()->name }}!</i>
                         </a>
-                        <a href="/profilesettings"><i class="bi bi-pencil"> </i> Profilbild ändern</a>
+                        <a href="/profilesettings"><i class="bi bi-pencil"> </i> Profil bearbeiten</a>
                         <form action="/logout" method="post">
                             @csrf
                             <button class="dropdown-item"><i class="bi bi-door-closed"> </i> Logout</button>

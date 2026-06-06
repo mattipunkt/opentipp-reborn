@@ -11,6 +11,19 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 
+function create_votes_for_all_users(): void {
+    $users = User::all();
+    foreach ($users as $user) {
+        $games = Game::all();
+        foreach ($games as $game) {
+            Vote::firstOrCreate([
+                'user_id' => $user->id,
+                'game_id' => $game->id,
+            ]);
+        }
+    }
+}
+
 function refreshGameData()
 {
     $url = 'https://api.openligadb.de/getmatchdata/wm26/2026';
@@ -77,89 +90,13 @@ Artisan::command('dbug:votes', function () {
 
 Schedule::call(function () {
     refreshGameData();
-})->everyTenMinutes();
-
-function calcPoints(): void
-{
-    $votes = Vote::all();
-
-    foreach ($votes as $vote) {
-        if ($vote->game->is_finished) {
-            $points = 0;
-            $game = $vote->game;
-            if (! isset($vote->team1_vote) || ! isset($vote->team2_vote)) {
-                $vote->points = $points;
-                $vote->save();
-
-                continue;
-            } else {
-                if ($game->team1_score == $game->team2_score) {
-                    $data_winner = 0;
-                } elseif ($game->team1_score > $game->team2_score) {
-                    $data_winner = 1;
-                } elseif ($game->team1_score < $game->team2_score) {
-                    $data_winner = 2;
-                }
-                if ($vote->team1_vote == $vote->team2_vote) {
-                    $voter_winner = 0;
-                } elseif ($vote->team1_vote > $vote->team2_vote) {
-                    $voter_winner = 1;
-                } elseif ($vote->team1_vote < $vote->team2_vote) {
-                    $voter_winner = 2;
-                }
-                if ($voter_winner === $data_winner) {
-                    $points = 1;
-                    $data_differenz = $game->team1_score - $game->team2_score;
-                    $voter_differenz = $vote->team1_vote - $vote->team2_vote;
-                    if ($data_differenz == $voter_differenz) {
-                        $points = 3;
-                    }
-                    if ($vote->team1_vote == $game->team1_score && $vote->team2_vote == $game->team2_score) {
-                        $points = 5;
-                    }
-                }
-            }
-            $vote->points = $points;
-            $vote->save();
-        }
-
-    }
-
-    $users = User::all();
-    foreach ($users as $user) {
-        $votes = Vote::where('user_id', $user->id)->get();
-        $points = 0;
-        foreach ($votes as $vote) {
-            $points += $vote->points;
-        }
-        $user->points = $points;
-        $user->save();
-    }
-}
-
-function create_votes_for_all_users(): void {
-    $users = User::all();
-    foreach ($users as $user) {
-        $games = Game::all();
-        foreach ($games as $game) {
-            Vote::firstOrCreate([
-                'user_id' => $user->id,
-                'game_id' => $game->id,
-            ]);
-        }
-    }
-}
-
-Schedule::call(function () {
     create_votes_for_all_users();
-})->hourly();
-
-Schedule::call(function () {
-    calcPoints();
+    \App\Http\Controllers\VoteController::calcPoints();
 })->everyTenMinutes();
+
 
 Artisan::command('calc:votes', function () {
-    calcPoints();
+    \App\Http\Controllers\VoteController::calcPoints();
 });
 
 Artisan::command('create:votes', function () {
