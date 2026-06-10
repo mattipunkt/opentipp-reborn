@@ -1,7 +1,13 @@
 <x-layout>
+
     <h1 class="text-4xl font-bold mb-2">
         Sondertipp
     </h1>
+    @if(session('success'))
+        <div class="alert alert-success text-base-100 shadow text-shadow my-2">
+            {{ session('success') }}
+        </div>
+    @endif
     <form action="/special" method="POST">
         @csrf
     <div class="grid grid-cols-1 gap-2 mb-3">

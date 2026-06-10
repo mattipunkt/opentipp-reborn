@@ -98,7 +98,7 @@ class VoteController extends Controller
         $user->team_id = $validated['team_id'];
         $user->save();
 
-        return redirect()->back()->with('success', 'Deine Auswahl wurde gespeichert!');
+        return redirect()->back()->with('success', 'Vote erfolgreich gespeichert!');
     }
 
     public static function calcPoints(bool $matchFinished = false): void
