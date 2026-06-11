@@ -16,7 +16,7 @@
                 <div class="text-xl">Wer wird das Turnier gewinnen?</div>
                 <i>Hast du diesen Tipp richtig, bekommst du am Ende 10 Punkte extra berechnet.</i>
 
-        <select class="select w-full" name="team_id" id="team_id" @if($allowedToChange === false) disabled @endif>
+        <select class="select w-full" name="team_id" id="team_id" @if($allowedToChange === true) disabled @endif>
             <option value="null" @if($user->team_id === null) selected @endif>--</option>
             @foreach ($teams as $team)
                 <option value="{{ $team->id }}" @if($user->team_id == $team->id) selected @endif>

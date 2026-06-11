@@ -39,7 +39,7 @@
         </div>
         <div class="card card-border bg-base-200 shadow">
             <div class="card-body">
-                <h4 class="text-2xl font-bold">Letze Spiele</h4>
+                <h4 class="text-2xl font-bold">Letzte Spiele</h4>
                 @foreach($lastGames as $game)
                     <a class="hover:underline underline-offset-4 transition-all" href="/match/{{ $game->id }}">
                     <div class="m-1">
