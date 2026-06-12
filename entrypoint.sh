@@ -18,6 +18,9 @@ echo "ERROR_REPORT_MAIL=$ERROR_REPORT_MAIL" >> .env
 php artisan key:generate
 php artisan optimize:clear
 php artisan optimize
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
 
 php artisan migrate --no-interaction --force
 php artisan oldb
