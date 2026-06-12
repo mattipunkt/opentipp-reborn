@@ -12,7 +12,9 @@
                         @if($user->location)<i class="bi bi-geo-alt mr-1"></i>{{ $user->location }}<br>@endif
                         @if($user->slogan)<i class="bi bi-pencil-fill mr-1"></i>{{ $user->slogan }}<br>@endif
                         @if($showWinner)
+                            @if($user->winnerBet)
                             <i class="bi bi-trophy mr-1"></i>{{$user->winnerBet->name}} {{ $user->winnerBet->icon_url }}<br>
+                            @endif
                         @endif
                         <i class="bi bi-list-ol mr-1"></i><b>Punkte:</b> {{ $user->points }}
 

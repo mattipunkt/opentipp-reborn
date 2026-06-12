@@ -17,7 +17,7 @@ class ProfileController extends Controller
         }
 
         return view('profile', [
-            'showWinner' => Game::getNextGames()->first()->is_started,
+            'showWinner' => Game::all()->first()->is_started,
             'user' => $user,
             'games' => \App\Models\Vote::where('user_id', $user->id)
                 ->whereHas('game', function ($q) {
