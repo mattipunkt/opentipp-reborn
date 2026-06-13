@@ -52,7 +52,7 @@
                                 {{ $game->game->team2->name }}
                             </div>
                             <div class="mt-1">
-                                @if($game->team1_vote)
+                                @if($game->team1_vote !== null && $game->team2_vote !== null)
                                     <b class="d-md-none">Punkte: </b>
                                     {{ $game->points }}
                                 @else
