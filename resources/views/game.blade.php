@@ -39,7 +39,7 @@
 
                                 </div>
                                 <div class="font-medium text-lg">
-                                    @if($vote->team1_vote)
+                                    @if($vote->team1_vote !== null && $vote->team2_vote !== null)
                                         {{ $vote->team1_vote }} : {{ $vote->team2_vote }}
                                     @else
                                         <i class="font-normal italic text-sm">kein Tipp abgegeben</i>
