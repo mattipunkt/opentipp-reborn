@@ -29,12 +29,16 @@ class VoteController extends Controller
             }
             $gametype_id = $nextGame->gameType->id;
         }
-        $votes = Vote::whereHas('game', function ($query) use ($gametype_id) {
-            $query->whereHas('gameType', function ($query) use ($gametype_id) {
-                $query->where('id', $gametype_id);
-            });
-        })->where('user_id', auth()->id())
-            ->with('game.team1', 'game.team2') // Hier laden Sie die Beziehung game und dessen Beziehungen team1 und team2
+        $votes = Vote::join('games', 'votes.game_id', '=', 'games.id')
+            ->whereHas('game', function ($query) use ($gametype_id) {
+                $query->whereHas('gameType', function ($query) use ($gametype_id) {
+                    $query->where('id', $gametype_id);
+                });
+            })
+            ->where('votes.user_id', auth()->id()) // Eindeutig machen wegen des Joins
+            ->with('game.team1', 'game.team2')
+            ->orderBy('games.time', 'asc') // 'time' statt 'start_time'
+            ->select('votes.*') // Verhindert das Überschreiben der Vote-IDs
             ->get();
 
         return view('votes', [
