@@ -3,7 +3,7 @@
     <div class="card card-border shadow bg-base-200">
         <div class="card-body">
             <div class="grid justify-center gap-2">
-                <span class="text-center text-lg">{{ $game->time->format('d.m.Y,  H:i') }} Uhr</span>
+                <span class="text-center text-lg">{{ optional($game->time)->format('d.m.Y,  H:i') ?? 'TBA' }} Uhr</span>
                 <div class="grid grid-cols-5 text-3xl font-bold">
                     <div class="col-span-2 text-right break-words">
                         {{ $game->team1->name }}

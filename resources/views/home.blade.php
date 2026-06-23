@@ -12,7 +12,7 @@
                         <a class="hover:underline underline-offset-4 transition-all" href="/match/{{ $game->id }}">
                             <div class="mt-2">
                                 <div class="text-center font-medium">
-                                    {{ $game->time->format('d.m.Y,  H:i') }} Uhr
+                                    {{ optional($game->time)->format('d.m.Y,  H:i') ?? 'TBA' }} Uhr
                                 </div>
                                 <div class="flex justify-center">
                                     <div class="">
@@ -44,7 +44,7 @@
                     <a class="hover:underline underline-offset-4 transition-all" href="/match/{{ $game->id }}">
                     <div class="m-1">
                         <div class="text-center font-medium">
-                            {{ $game->time->format('d.m.Y,  H:i') }} Uhr
+                            {{ optional($game->time)->format('d.m.Y, H:i') ?? 'TBA' }} Uhr
                         </div>
                         <div class="flex justify-center">
                             <div class="">

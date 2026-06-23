@@ -35,7 +35,7 @@
                     <a class="link-body-emphasis link-underline link-underline-opacity-0" href="/match/{{ $game->id }}">
                         <div class="row mb-3 mb-md-0 text-md-start text-center">
                             <span class="italic mb-1 font-medium underline">
-                                {{ $game->game->time->format('d.m.Y, H:i') }}
+                                {{ optional($game->game->time)->format('d.m.Y, H:i') ?? 'TBA' }}
                             </span>
                             <div class="col-md-2 col-12">
                                 {{ $game->game->team1->name }}

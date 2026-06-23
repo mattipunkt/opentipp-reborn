@@ -45,7 +45,7 @@
                 @foreach($votes as $vote)
                     <div class="grid md:grid-cols-13 grid-cols-11 mb-4 mb-md-2 align-center items-center text-center">
                         <div class="md:col-span-2 col-span-12 md:text-left text-center">
-                            <span class="break-words min-w-0 block"><b>{{ $vote->game->time->format('d.m.Y, H:i') }}</b></span>
+                            <span class="break-words min-w-0 block"><b>{{ optional($vote->game->time)->format('d.m.Y, H:i') ?? 'TBA' }}</b></span>
                         </div>
 
                         <!-- Team 1 Name -->
