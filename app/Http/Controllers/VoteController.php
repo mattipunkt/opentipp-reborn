@@ -107,10 +107,16 @@ class VoteController extends Controller
 
     public static function calcPoints(bool $matchFinished = false): void
     {
+        $null_votes = Vote::whereNull('game_id')->get();
+        foreach ($null_votes as $vote) {
+            $vote->delete();
+        }
+
         $votes = Vote::all();
 
+
         foreach ($votes as $vote) {
-            if ($vote->game->is_finished) {
+            if (optional($vote->game)->is_finished) {
                 $points = 0;
                 $game = $vote->game;
                 if (! isset($vote->team1_vote) || ! isset($vote->team2_vote)) {
