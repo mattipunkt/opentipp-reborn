@@ -32,7 +32,7 @@
                         <div class="card-body">
 
 
-                    <a class="link-body-emphasis link-underline link-underline-opacity-0" href="/match/{{ $game->id }}">
+                    <a class="link-body-emphasis link-underline link-underline-opacity-0" href="/match/{{ $game->game->id }}">
                         <div class="row mb-3 mb-md-0 text-md-start text-center">
                             <span class="italic mb-1 font-medium underline">
                                 {{ optional($game->game->time)->format('d.m.Y, H:i') ?? 'TBA' }}
