@@ -16,6 +16,7 @@ class Game extends Model
         'is_started',
         'game_type',
         'openligadb_id',
+        'manually_edited'
     ];
 
     protected $casts = [

@@ -35,6 +35,8 @@ function refreshGameData()
                 'openligadb_id' => $match['matchID'],
             ]
         );
+
+
         $game->update(
             [
                 'team1_id' => Team::firstOrCreate(['name' => $match['team1']['teamName']])['id'],
@@ -43,20 +45,28 @@ function refreshGameData()
                 'game_type' => GameType::firstOrCreate(['name' => $match['group']['groupName']])['id'],
             ]
         );
-        if ($match['matchIsFinished']) {
-            $team1_score = end($match['matchResults'])['pointsTeam1'];
-            $team2_score = end($match['matchResults'])['pointsTeam2'];
-            $game->update([
-                'team1_score' => $team1_score,
-                'team2_score' => $team2_score,
-                'is_finished' => true,
-                'is_started' => true,
-            ]);
+        if (!$game->manually_edited) {
+            if ($match['matchIsFinished']) {
+                $team1_score = end($match['matchResults'])['pointsTeam1'];
+                $team2_score = end($match['matchResults'])['pointsTeam2'];
+                $game->update([
+                    'team1_score' => $team1_score,
+                    'team2_score' => $team2_score,
+                    'is_finished' => true,
+                    'is_started' => true,
+                ]);
+            }
         }
         if (DateTime::createFromFormat('Y-m-d\TH:i:s', $match['matchDateTime']) < now()) {
+
             $game->update([
                 'is_started' => true,
             ]);
+            if ($match['matchIsFinished']) {
+                $game->update([
+                    'is_finished' => true,
+                ]);
+            }
         }
     }
     foreach (Team::all() as $team) {
@@ -101,4 +111,16 @@ Artisan::command('calc:votes', function () {
 
 Artisan::command('create:votes', function () {
     create_votes_for_all_users();
+});
+
+
+Artisan::command('edit:game {id} {team1_score} {team2_score}', function ($id, $team1_score, $team2_score) {
+    $game = Game::find($id);
+    $game->team1_score = $team1_score;
+    $game->team2_score = $team2_score;
+    $game->manually_edited = true;
+    $game->save();
+    echo "Game with id $id has been edited.";
+    echo $game->team1->name.' score: '.$team1_score;
+    echo $game->team2->name.' score: '.$team2_score;;
 });
